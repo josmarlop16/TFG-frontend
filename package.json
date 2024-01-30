@@ -1,0 +1,24 @@
+{
+  "name": "tfg-frontend",
+  "version": "1.0.0",
+  "description": "This is the frontend repository for my TFG",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josmarlop16/TFG-frontend.git"
+  },
+  "author": "josmarlop16",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josmarlop16/TFG-frontend/issues"
+  },
+  "homepage": "https://github.com/josmarlop16/TFG-frontend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  }
+}
