@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 
 export const Navbar = styled.nav`
-    background: #272643;
     color: #ffffff;
     width: 100%;
     height: 10vh;
