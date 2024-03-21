@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const LandingContainer = styled.div`
     display: flex;
@@ -13,8 +14,39 @@ export const LandingTitle = styled.h1`
     width: 50vw;
     color: #ffffff;
     font-size: 4rem;
+    text-align: center;
 `
 export const Carrousel = styled.image`
     width: 50vw;
     height: auto;
+`
+export const LottieContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+`
+export const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+`
+export const StyledLink = styled(RouterLink)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #bae8e8;
+    border: 2px solid #ffffff;
+    border-radius: 0.5rem;
+    width: 30%;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    text-decoration: none;
+    color: #000000;
+    transition: all 0.5s ease;
+    &:hover {
+        background-color: #ffffff;
+        box-shadow: 2px 2px 2px 1px #bae8e8;
+    }
 `

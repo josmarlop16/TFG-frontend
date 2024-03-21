@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const LoginSubtitle = styled.h2`
+export const RegisterSubtitle = styled.h2`
   color: #000000;
   font-size: 0.8rem;
   color: #656565;
@@ -16,7 +16,7 @@ export const LoginSubtitle = styled.h2`
   margin-bottom: 1rem;
   text-align: center;
 `;
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
   padding: 1rem;
   width: 30%;
   display: flex;
@@ -26,7 +26,7 @@ export const LoginForm = styled.form`
   background-color: #fafafa;
   border-radius: 1rem;
 `;
-export const LoginTitle = styled.h1`
+export const RegisterTitle = styled.h1`
   color: #000000;
   text-align: center;
   font-size: 2rem;
@@ -73,7 +73,7 @@ export const LoginLabel = styled.label`
   pointer-events: none;
   transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
-export const LoginButton = styled.button`
+export const RegisterButton = styled.button`
   display: flex;
   width: 80%;
   height: 40px;

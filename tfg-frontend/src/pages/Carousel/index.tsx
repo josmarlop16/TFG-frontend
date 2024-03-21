@@ -1,8 +1,12 @@
-// Carousel.js
 import React, { useEffect, useState } from 'react';
 import { Container, Item } from './styles.ts';
 
-const Carousel = ({ texts, interval = 3000 }) => {
+interface CarouselProps {
+  texts: string[]; // Tipo explícito para texts
+  interval?: number;
+}
+
+const Carousel: React.FC<CarouselProps> = ({ texts, interval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
