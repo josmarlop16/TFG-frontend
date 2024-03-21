@@ -33,7 +33,8 @@ const HeaderContent = () => {
         </StyledLink>
         <SearchBar />
         <StyledLink to="/login">Login</StyledLink>
-        <StyledLink to="/register">Register</StyledLink>  
+        <StyledLink to="/register">Register</StyledLink>
+        <StyledLink to="/prueba">pryeba</StyledLink>  
       </Navbar>
       <TransitionGroup>
         <CSSTransition key={key} classNames="fade" timeout={300}>
