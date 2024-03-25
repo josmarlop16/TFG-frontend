@@ -8,6 +8,12 @@ export const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+export const LoginTitle = styled.h1`
+  color: #000000;
+  text-align: center;
+  font-size: 2rem;
+  padding: 5%;
+`;
 export const LoginSubtitle = styled.h2`
   color: #000000;
   font-size: 0.8rem;
@@ -25,12 +31,6 @@ export const LoginForm = styled.form`
   justify-content: center;
   background-color: #fafafa;
   border-radius: 1rem;
-`;
-export const LoginTitle = styled.h1`
-  color: #000000;
-  text-align: center;
-  font-size: 2rem;
-  padding: 5%;
 `;
 export const InputGroup = styled.div`
   display: flex;

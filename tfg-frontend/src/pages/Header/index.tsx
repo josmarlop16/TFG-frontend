@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Login from '../Login/index.tsx';
 import Landing from '../Landing/index.tsx';
+import MoviesList from '../MoviesList/index.tsx';
 import { Navbar, StyledLink } from './styles.ts';
 import SearchBar from '../SearchBar/index.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,7 +35,6 @@ const HeaderContent = () => {
         <SearchBar />
         <StyledLink to="/login">Login</StyledLink>
         <StyledLink to="/register">Register</StyledLink>
-        <StyledLink to="/prueba">pryeba</StyledLink>  
       </Navbar>
       <TransitionGroup>
         <CSSTransition key={key} classNames="fade" timeout={300}>
@@ -42,6 +42,7 @@ const HeaderContent = () => {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/movies" element={<MoviesList />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
