@@ -1,5 +1,3 @@
-// index.tsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -18,9 +16,10 @@ import {
 } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from '../SearchBar';
 
 interface FiltersProps {
-    onFilterChange: (filters: { genres: string[], sortBy: string, order: string }) => void;
+    onFilterChange: (filters: { genres: string[], sortBy: string, order: string, movieName: string }) => void;
 }
 
 const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
@@ -28,6 +27,7 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState<string>('');
     const [order, setOrder] = useState<string>('');
+    const [movieName, setMovieName] = useState<string>(''); // Nuevo estado para la palabra clave de búsqueda
     const [isFilterMenuVisible, setIsFilterMenuVisible] = useState<boolean>(false);
 
     useEffect(() => {
@@ -59,7 +59,8 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
         const filters = {
             genres: selectedGenres,
             sortBy,
-            order
+            order,
+            movieName // Incluir la palabra clave de búsqueda en los filtros
         };
         onFilterChange(filters);
     };
@@ -68,7 +69,8 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
         setSelectedGenres([]);
         setSortBy('numVotes');
         setOrder('desc');
-        onFilterChange({ genres: [], sortBy: 'numVotes', order: 'desc' });
+        setMovieName(''); // Restablecer la palabra clave de búsqueda al resetear los filtros
+        onFilterChange({ genres: [], sortBy: 'numVotes', order: 'desc', movieName: '' });
     };
 
     const toggleFilterMenu = () => {
@@ -76,14 +78,16 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
     };
 
     return (
-        <><FiltersTitle>
-            Filters
+        <>
+        <FiltersTitle>
+            Search filters
             <ArrowButton onClick={toggleFilterMenu} style={{ transform: `rotate(${isFilterMenuVisible ? '-90deg' : '0deg'})` }}>
                 <FontAwesomeIcon icon={faAngleLeft} />
             </ArrowButton>
-        </FiltersTitle><FiltersContainer>
+        </FiltersTitle>
+        <FiltersContainer isVisible={isFilterMenuVisible}>
 
-                <Sort isVisible={isFilterMenuVisible}>
+                <Sort>
                     <FilterSubcontainer>
                         <FiltersSubtitle>Sort By</FiltersSubtitle>
                         <Select value={sortBy} onChange={handleSortByChange}>
@@ -101,7 +105,7 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
                         </Select>
                     </FilterSubcontainer>
                 </Sort>
-                <GenresSubcontainer style={{ opacity: isFilterMenuVisible ? '1' : '0' }}>
+                <GenresSubcontainer>
                     <FiltersSubtitle>Genres</FiltersSubtitle>
                     <ButtonsContainer>
                         {genres.map(genre => (
@@ -115,7 +119,7 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
                         ))}
                     </ButtonsContainer>
                 </GenresSubcontainer>
-                <ApplyContainer style={{ opacity: isFilterMenuVisible ? '1' : '0' }}>
+                <ApplyContainer>
                     <ApplyButton onClick={handleApplyFilters}>Apply Filters</ApplyButton>
                     <ApplyButton onClick={handleResetFilters}>Reset Filters</ApplyButton>
                 </ApplyContainer>

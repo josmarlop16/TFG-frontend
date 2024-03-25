@@ -3,11 +3,14 @@ import styled from 'styled-components';
 interface SortProps {
   isVisible: boolean;
 }
-export const FiltersContainer = styled.div`
+export const FiltersContainer = styled.div<SortProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  max-height: ${({ isVisible }) => (isVisible ? '1000px' : '0')};
+  overflow: hidden;
+  transition: max-height 1s ease;
 `;
 export const FiltersTitle = styled.h1`
   color: #ffffff;
@@ -15,12 +18,13 @@ export const FiltersTitle = styled.h1`
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 1.5rem;
+  gap: 0.5rem;
   justify-content: center;
   align-content: center;
 `;
 export const ArrowButton = styled.button`
   transform: translateY(-50%);
+  margin-top: 0.3rem;
   background-color: transparent;
   border: none;
   color: #ffffff;
@@ -28,8 +32,7 @@ export const ArrowButton = styled.button`
   cursor: pointer;
   transition: transform 0.5s ease;
 `;
-export const Sort = styled.div<SortProps>`
-  display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
+export const Sort = styled.div`
   flex-direction: row;
   gap: 2rem;
   align-items: center;
@@ -99,6 +102,7 @@ export const ApplyContainer = styled.div`
   gap: 2rem;
   align-content: center;
   justify-content: center;
+  margin-bottom: 1.5rem;
 `;
 export const GenresSubcontainer = styled.div`
   display: flex;

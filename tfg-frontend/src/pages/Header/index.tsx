@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Login from '../Login/index.tsx';
 import Landing from '../Landing/index.tsx';
 import MoviesList from '../MoviesList/index.tsx';
 import { Navbar, StyledLink } from './styles.ts';
-import SearchBar from '../SearchBar/index.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faHouse } from '@fortawesome/free-solid-svg-icons';
 import Register from '../Register/index.tsx';
 
 const Header = () => {
@@ -29,15 +28,21 @@ const HeaderContent = () => {
   return (
     <>
       <Navbar>
+        <StyledLink to="/movies">
+          <FontAwesomeIcon icon={faFilm} />
+        </StyledLink>
         <StyledLink to="/">
           <FontAwesomeIcon icon={faHouse} />
         </StyledLink>
-        <SearchBar />
-        <StyledLink to="/login">Login</StyledLink>
-        <StyledLink to="/register">Register</StyledLink>
+        <StyledLink to="/login">
+          Login
+        </StyledLink>
+        <StyledLink to="/register">
+          Register
+        </StyledLink>
       </Navbar>
       <TransitionGroup>
-        <CSSTransition key={key} classNames="fade" timeout={300}>
+        <CSSTransition key={key} classNames="fade" timeout={500}>
           <Routes location={location}>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />

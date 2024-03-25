@@ -1,13 +1,8 @@
-// styles.ts
 import styled from 'styled-components';
 
-interface InputContainerProps {
-  expanded: boolean;
-}
-
-export const InputContainer = styled.div<InputContainerProps>`
+export const InputContainer = styled.div`
   position: relative;
-  width: ${({ expanded }) => (expanded ? '50%' : '20%')};
+  width: 40%;
   transition: width 0.5s ease;
 `;
 
@@ -32,4 +27,17 @@ export const IconContainer = styled.div`
   right: 8px;
   transform: translateY(-50%);
   color: #666;
+`;
+export const SearchButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+`;
+export const SearchBarContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
 `;

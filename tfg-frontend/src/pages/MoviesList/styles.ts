@@ -52,6 +52,7 @@ export const List = styled.div`
   gap: 0.2rem;
   width: 100%;
   height: auto;
+  min-height: 80vh;
   overflow-y: auto;
   scroll-behavior: smooth;
   padding: 2rem;

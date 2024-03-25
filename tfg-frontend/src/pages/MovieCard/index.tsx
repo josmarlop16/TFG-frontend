@@ -38,10 +38,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
           </Poster>
           <Details>
             <Title>{primaryTitle}</Title>
-            <Subtitle>{Year} • {genres.join(', ')}</Subtitle>
+            <Subtitle>{Year} • {genres ? genres.join(', ') : ''}</Subtitle>
             <div className="rating">
               {Array.from({ length: Math.floor(rating) }, (_, index) => (
-                <span key={index}>⭐️</span>
+                <span key={index}>🍿</span>
               ))}
               <span>{rating}/10</span>
             </div>
