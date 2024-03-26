@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Movie, RelatedMovie } from '../../types/movie';
+import { Media, Movie, RelatedMovie } from '../../types/movie';
 import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
 import EmptyAnimation from "../../lotties/empty-animation.json";
 import { Cast, Data, Image, MediaCarrousel, MediaSection, MovieContainer, MovieData, MovieSubitle, MovieText, MovieTitle, Multimedia } from './styles';
 import { List } from '../MoviesList/styles';
 import MovieCard from '../MovieCard';
+import ReactPlayer from 'react-player/lazy';
 
 interface CrewMember {
   _id: string;
@@ -16,19 +17,20 @@ interface CrewMember {
 }
 
 interface MovieDetailData {
-  movie: Movie;
+  film: Movie;
   crew: CrewMember[];
   relatedMovies: RelatedMovie[];
+  media: Media;
 }
 
 const MovieDetail: React.FC = () => {
   const { movieId } = useParams<{ movieId: string }>();
   const [movieData, setMovieData] = useState<MovieDetailData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingMedia, setIsLoadingMedia] = useState<boolean>(true);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(movieId);
     axios.post<MovieDetailData>(`http://localhost:4000/movie-detail`, { movieId })
       .then(response => {
         console.log(response.data);
@@ -40,6 +42,12 @@ const MovieDetail: React.FC = () => {
         setIsLoading(false);
       });
   }, [movieId]);
+
+  useEffect(() => {
+    if (movieData && movieData.film.media) {
+      setIsLoadingMedia(false);
+    }
+  }, [movieData]);
 
   if (isLoading) {
     return (
@@ -75,24 +83,25 @@ const MovieDetail: React.FC = () => {
     );
   }
 
-  const { movie, crew, relatedMovies } = movieData;
+  const { film, crew, relatedMovies, media } = movieData;
 
   return (
     <MovieContainer>
       <MovieData>
-        <Image src={movie.poster} alt={movie.primaryTitle} />
+        <Image src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt={`${film.title} Poster`} />
         <Data>
-          <MovieTitle>{movie.primaryTitle} ({movie.Year})</MovieTitle>
+          <MovieTitle>{film.title} ({new Date(film.release_date).getFullYear()})</MovieTitle>
           <div>
             <MovieText>
-              {Array.from({ length: Math.floor(movie.rating) }, (_, index) => (
+              {Array.from({ length: Math.floor(film.vote_average) }, (_, index) => (
                 <span key={index}>🍿</span>
               ))}
-              {movie.rating}/10
+              {film.vote_average}/10
             </MovieText>
-            <MovieText>{movie.genres.join(', ')}</MovieText>
-            <MovieText>{movie.synopsis}</MovieText>
+            <MovieText>{film.genres.join(', ')}</MovieText>
+            <MovieText>{film.overview}</MovieText>
           </div>
+          <MovieText>Cast</MovieText>
           <Cast>
             {crew.map(person => (
               <MovieText key={person._id}>
@@ -102,41 +111,36 @@ const MovieDetail: React.FC = () => {
           </Cast>
         </Data>
       </MovieData>
-      <Multimedia>
-        <MediaSection>
+      {media && (
+        <Multimedia>
+          <MediaSection>
             <MovieSubitle>Trailers</MovieSubitle>
             <MediaCarrousel>
-                {movie.media.trailers.map((trailer, index) => (
-                    <iframe
-                        key={index}
-                        width="560"
-                        height="315"
-                        src={trailer.url}
-                        title={`Trailer ${index + 1}`}
-                        allowFullScreen
-                    ></iframe>
-                ))}
+              {media.trailers.map((trailer) => (
+                <ReactPlayer url={trailer.url} style={{ minWidth: '400px', height: 'auto', marginBottom: '10px', justifyContent: 'center', alignItems: 'center' }} />
+              ))}
             </MediaCarrousel>
-        </MediaSection>
-        <MediaSection>
+          </MediaSection>
+          <MediaSection>
             <MovieSubitle>Images</MovieSubitle>
             <MediaCarrousel>
-                {movie.media.images.map((image, index) => (
-                    <img
-                        key={index}
-                        src={image.url}
-                        alt={`Image ${index + 1}`}
-                        style={{ width: '400px', height: 'auto', marginRight: '10px', marginBottom: '10px' }} />
-                ))}
+              {media.images.map((image, index) => (
+                <img
+                  key={index}
+                  src={image.url}
+                  alt={`Image ${index + 1}`}
+                  style={{ width: '400px', height: 'auto', marginBottom: '10px' }} />
+              ))}
             </MediaCarrousel>
-        </MediaSection>
-      </Multimedia>
-    <MovieSubitle>Related</MovieSubitle>
-    <List>
+          </MediaSection>
+        </Multimedia>
+      )}
+      <MovieSubitle>Related</MovieSubitle>
+      <List>
         {relatedMovies.map((relatedMovie) => (
-        <MovieCard key={relatedMovie._id} movie={relatedMovie} isLoading={isLoading} />
+          <MovieCard key={relatedMovie._id} movie={relatedMovie} isLoading={isLoading} />
         ))}
-    </List>
+      </List>
     </MovieContainer>
   );
 };

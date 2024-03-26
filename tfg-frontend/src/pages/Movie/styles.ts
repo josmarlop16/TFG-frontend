@@ -64,8 +64,10 @@ export const MediaCarrousel = styled.div`
   flex-direction: row;
   overflow-x: scroll;
   width: 100%;
+  height: fit-content;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 `;
 export const Multimedia = styled.div`
   display: flex;

@@ -69,26 +69,9 @@ const MoviesList = () => {
     setPage(1); // Reinicia la página al cambiar los filtros
   };
 
-  const handleSearch = (searchResults: Movie[]) => {
-    if (searchResults.length > 0) {
-      // Si se encontraron resultados, actualiza el estado de movies
-      setMovies(searchResults);
-    } else {
-      // Si no se encontraron resultados, mostrar sugerencias
-      fetchSuggestions(filters.movieName); // Realiza una nueva búsqueda para obtener sugerencias
-    }
-  };
-
-  const fetchSuggestions = (searchQuery: string) => {
-    fetch(`http://localhost:4000/suggestMovies?movieName=${encodeURIComponent(searchQuery)}`)
-      .then(response => response.json())
-      .then(data => {
-        // Actualiza el estado con las sugerencias
-        setMovies(data.suggestions);
-      })
-      .catch(error => {
-        console.error('Error fetching suggestions:', error);
-      });
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchQuery = event.target.value;
+    setFilters({ ...filters, movieName: searchQuery });
   };
 
   return (
@@ -96,9 +79,8 @@ const MoviesList = () => {
       <Filters onFilterChange={handleFilterChange} />
       <SearchBar 
         value={filters.movieName} 
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters({ ...filters, movieName: e.target.value })} 
+        onChange={handleSearch} 
         placeholder="Search any movie..." 
-        onSearch={handleSearch} // Actualiza la lista de películas con los resultados de la búsqueda
       />
       <Horizontal/>
       {isLoading && (

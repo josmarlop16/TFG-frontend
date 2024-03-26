@@ -12,14 +12,19 @@ export interface MovieImage {
   height: number;
 }
 
+export interface Media {
+  trailers: Trailer[];
+  images: MovieImage[];
+}
+
 export interface Movie {
-  synopsis: string;
+  overview: string;
   _id: string;
-  primaryTitle: string;
-  Year: number;
-  rating: number;
+  title: string;
+  release_date: number;
+  vote_average: number;
   genres: string[];
-  poster: string;
+  poster_path: string;
   media: {
     trailers: Trailer[];
     images: MovieImage[];
@@ -27,8 +32,8 @@ export interface Movie {
 }
 
 export interface RelatedMovie extends Movie {
-  tconst: string;
-  originalTitle: string;
-  runtimeMinutes: number;
-  numVotes: number;
+  imdb_id: string;
+  title: string;
+  runtime: number;
+  vote_count: number;
 }
