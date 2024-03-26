@@ -8,6 +8,7 @@ import { Navbar, StyledLink } from './styles.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faHouse } from '@fortawesome/free-solid-svg-icons';
 import Register from '../Register/index.tsx';
+import Movie from '../Movie/index.tsx';
 
 const Header = () => {
   return (
@@ -48,6 +49,7 @@ const HeaderContent = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/movies" element={<MoviesList />} />
+            <Route path="/movie/:movieId" element={<Movie />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>

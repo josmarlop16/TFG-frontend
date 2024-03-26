@@ -70,7 +70,25 @@ const MoviesList = () => {
   };
 
   const handleSearch = (searchResults: Movie[]) => {
-    setMovies(searchResults);
+    if (searchResults.length > 0) {
+      // Si se encontraron resultados, actualiza el estado de movies
+      setMovies(searchResults);
+    } else {
+      // Si no se encontraron resultados, mostrar sugerencias
+      fetchSuggestions(filters.movieName); // Realiza una nueva búsqueda para obtener sugerencias
+    }
+  };
+
+  const fetchSuggestions = (searchQuery: string) => {
+    fetch(`http://localhost:4000/suggestMovies?movieName=${encodeURIComponent(searchQuery)}`)
+      .then(response => response.json())
+      .then(data => {
+        // Actualiza el estado con las sugerencias
+        setMovies(data.suggestions);
+      })
+      .catch(error => {
+        console.error('Error fetching suggestions:', error);
+      });
   };
 
   return (
@@ -98,47 +116,46 @@ const MoviesList = () => {
             width={200}
           />
         </div>
-)}
-{!isLoading && (
-  <>
-    {movies.length === 0 ? (
-      <Lottie 
-            options={{
-              loop: true,
-              autoplay: true,
-              animationData: EmptyAnimaton,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice"
-              }
-            }}
-            height={200}
-            width={200}
-          />
-    ) : (
-      <List>
-        {movies.map((movie, index) => (
-          <MovieCard key={index} movie={movie} isLoading={false} />
-        ))}
-      </List>
-    )}
-    <PaginationContainer>
-      <PaginationButton onClick={handleFirstPage} disabled={page === 1}><FontAwesomeIcon icon={faAnglesLeft} /></PaginationButton>
-      <PaginationButton onClick={handlePrevPage} disabled={page === 1}><FontAwesomeIcon icon={faAngleLeft} /></PaginationButton>
-      {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => (
-        <PaginationButton
-          key={page + index}
-          onClick={() => handlePageSelect(page + index)}
-          disabled={page + index > totalPages}
-        >
-          {page + index}
-        </PaginationButton>
-      ))}
-      <PaginationButton onClick={handleNextPage} disabled={page === totalPages}><FontAwesomeIcon icon={faAngleRight} /></PaginationButton>
-      <PaginationButton onClick={handleLastPage} disabled={page === totalPages}><FontAwesomeIcon icon={faAnglesRight} /></PaginationButton>
-    </PaginationContainer>
-  </>
-)}
-
+      )}
+      {!isLoading && (
+        <>
+          {movies.length === 0 ? (
+            <Lottie 
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: EmptyAnimaton,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice"
+                }
+              }}
+              height={200}
+              width={200}
+            />
+          ) : (
+            <List>
+              {movies.map((movie, index) => (
+                <MovieCard key={movie._id} movie={movie} isLoading={isLoading}/>
+              ))}
+            </List>
+          )}
+          <PaginationContainer>
+            <PaginationButton onClick={handleFirstPage} disabled={page === 1}><FontAwesomeIcon icon={faAnglesLeft} /></PaginationButton>
+            <PaginationButton onClick={handlePrevPage} disabled={page === 1}><FontAwesomeIcon icon={faAngleLeft} /></PaginationButton>
+            {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => (
+              <PaginationButton
+                key={page + index}
+                onClick={() => handlePageSelect(page + index)}
+                disabled={page + index > totalPages}
+              >
+                {page + index}
+              </PaginationButton>
+            ))}
+            <PaginationButton onClick={handleNextPage} disabled={page === totalPages}><FontAwesomeIcon icon={faAngleRight} /></PaginationButton>
+            <PaginationButton onClick={handleLastPage} disabled={page === totalPages}><FontAwesomeIcon icon={faAnglesRight} /></PaginationButton>
+          </PaginationContainer>
+        </>
+      )}
     </ListContainer>
   );
 }
