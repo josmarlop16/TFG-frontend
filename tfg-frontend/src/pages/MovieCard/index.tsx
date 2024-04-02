@@ -7,7 +7,7 @@ import LoadingAnimation from "../../lotties/loading-animation.json";
 
 interface MovieCardProps {
   movie: Movie;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {

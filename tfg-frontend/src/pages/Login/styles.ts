@@ -92,5 +92,3 @@ export const LoginButton = styled.button`
       box-shadow: 2px 2px 2px 1px #656565;
   }
 `;
-
-

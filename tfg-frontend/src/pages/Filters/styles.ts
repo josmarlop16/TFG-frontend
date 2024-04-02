@@ -79,7 +79,7 @@ export const ApplyButton = styled.button`
   background-color: #bae8e8;
   border: 2px solid #ffffff;
   border-radius: 0.5rem;
-  width: 30%;
+  width: 20%;
   height: 40px;
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
@@ -109,4 +109,5 @@ export const GenresSubcontainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 60%;
 `;

@@ -17,6 +17,16 @@ export interface Media {
   images: MovieImage[];
 }
 
+export interface Provider {
+  provider_name: string;
+  logo_path: string;
+}
+
+export interface Providers {
+  buy: Provider[];
+  flatrate: Provider[];
+}
+
 export interface Movie {
   overview: string;
   _id: string;
@@ -25,15 +35,12 @@ export interface Movie {
   vote_average: number;
   genres: string[];
   poster_path: string;
-  media: {
-    trailers: Trailer[];
-    images: MovieImage[];
-  };
+  media: Media;
+  providers: Providers;
 }
 
 export interface RelatedMovie extends Movie {
   imdb_id: string;
-  title: string;
   runtime: number;
   vote_count: number;
 }

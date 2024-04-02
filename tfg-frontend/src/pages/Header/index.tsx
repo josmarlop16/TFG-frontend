@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Login from '../Login/index.tsx';
-import Landing from '../Landing/index.tsx';
-import MoviesList from '../MoviesList/index.tsx';
-import { Navbar, StyledLink } from './styles.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faHouse, faUserPlus, faArrowRightToBracket, faCircleXmark, faUser } from '@fortawesome/free-solid-svg-icons';
 import Register from '../Register/index.tsx';
 import Movie from '../Movie/index.tsx';
+import { Navbar, StyledLink } from './styles.ts';
+import Landing from '../Landing/index.tsx';
+import Login from '../Login/index.tsx';
+import MoviesList from '../MoviesList/index.tsx';
+import Logout from '../Logout/index.tsx';
+import User from '../User/index.tsx';
+import { UserProvider } from '../../hooks/userContext.js';
+import { Toaster } from 'react-hot-toast';
 
 const Header = () => {
   return (
-    <Router>
-      <HeaderContent />
-    </Router>
+    <UserProvider>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+      <Router>
+        <HeaderContent />
+      </Router>
+    </UserProvider>
   );
 };
 
 const HeaderContent = () => {
+  const isLoggedIn = sessionStorage.getItem('token');
+  const username = sessionStorage.getItem('username')|| '';
   const location = useLocation();
   const [key, setKey] = useState(location.pathname);
 
@@ -29,18 +41,31 @@ const HeaderContent = () => {
   return (
     <>
       <Navbar>
-        <StyledLink to="/movies">
+        <StyledLink to="/movies" data-text="Movies">
           <FontAwesomeIcon icon={faFilm} />
         </StyledLink>
-        <StyledLink to="/">
+        <StyledLink to="/" data-text="Home">
           <FontAwesomeIcon icon={faHouse} />
         </StyledLink>
-        <StyledLink to="/login">
-          Login
-        </StyledLink>
-        <StyledLink to="/register">
-          Register
-        </StyledLink>
+        {isLoggedIn ? (
+          <>
+            <StyledLink to="/logout" data-text="Log out">
+              <FontAwesomeIcon icon={faCircleXmark} />
+            </StyledLink>
+            <StyledLink to="/user" data-text={username}>
+              <FontAwesomeIcon icon={faUser} />
+            </StyledLink>
+          </>
+        ) : (
+          <>
+            <StyledLink to="/login" data-text="Log in">
+              <FontAwesomeIcon icon={faArrowRightToBracket} />
+            </StyledLink>
+            <StyledLink to="/register" data-text="Sign up">
+              <FontAwesomeIcon icon={faUserPlus} />
+            </StyledLink>
+          </>
+        )}
       </Navbar>
       <TransitionGroup>
         <CSSTransition key={key} classNames="fade" timeout={500}>
@@ -48,6 +73,8 @@ const HeaderContent = () => {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/movies" element={<MoviesList />} />
             <Route path="/movie/:movieId" element={<Movie />} />
           </Routes>

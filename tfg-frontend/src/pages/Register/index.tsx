@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   RegisterContainer,
   LoginLabel,
@@ -10,34 +12,68 @@ import {
   InputGroup,
   InputContainer,
 } from './styles.ts';
+import { useUser } from '../../hooks/userContext.js';
+import toast from 'react-hot-toast';
 
 const Register = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const navigate = useNavigate();
+  const { updateUser } = useUser();
+
+
+  const handleRegister = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:4000/register', {
+        username,
+        email,
+        password,
+        avatar,
+      });
+
+      const { user } = response.data;
+      updateUser(user);
+      navigate('/');
+      
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAvatar(event.target.value);
+  };
+
   return (
     <RegisterContainer>
-      <RegisterForm>
-      <RegisterTitle>Register</RegisterTitle>
-      <RegisterSubtitle>Register to have new features...</RegisterSubtitle>
-      <InputContainer>
-        <InputGroup>
-          <LoginInput required type='text' id='username' />
-          <LoginLabel>Username</LoginLabel>
-        </InputGroup>
-        <InputGroup>
-          <LoginInput required type='email' id='email' />
-          <LoginLabel>Email</LoginLabel>
-        </InputGroup>
-        <InputGroup>
-          <LoginInput required type='password' id='password' />
-          <LoginLabel>Password</LoginLabel>
-        </InputGroup>
-        <RegisterButton type="submit">Register</RegisterButton>    
-        <RegisterSubtitle>Already a member? <a href='/login'>Login now!</a></RegisterSubtitle>
-      </InputContainer>
-    </RegisterForm>
+      <RegisterForm onSubmit={handleRegister}>
+        <RegisterTitle>Sign up</RegisterTitle>
+        <RegisterSubtitle>Register to have new features...</RegisterSubtitle>
+        <InputContainer>
+          <InputGroup>
+            <LoginInput required type='text' id='username' value={username} onChange={(e) => setUsername(e.target.value)} />
+            <LoginLabel>Username</LoginLabel>
+          </InputGroup>
+          <InputGroup>
+            <LoginInput required type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <LoginLabel>Email</LoginLabel>
+          </InputGroup>
+          <InputGroup>
+            <LoginInput required type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <LoginLabel>Password</LoginLabel>
+          </InputGroup>
+          <InputGroup>
+            <LoginInput type='url' id='avatar' value={avatar} onChange={handleAvatarChange} />
+            <LoginLabel>Avatar URL (Optional)</LoginLabel>
+          </InputGroup>
+          <RegisterButton type="submit">Register</RegisterButton>
+        </InputContainer>
+      </RegisterForm>
     </RegisterContainer>
-  )
-}
+  );
+};
 
-Register.propTypes = {}
-
-export default Register
+export default Register;

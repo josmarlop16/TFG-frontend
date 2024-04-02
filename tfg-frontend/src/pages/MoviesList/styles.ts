@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const ListContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-content: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   justify-content: center;
   background-color: #0b1623;
 `;
@@ -22,7 +22,8 @@ export const PaginationContainer = styled.div`
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
   text-decoration: none;
-  background-image: linear-gradient(to right, #bae8e8, transparent, transparent, #bae8e8);
+  border: 2px solid none;
+  border-radius: 1rem;
 `;
 
 export const PaginationButton = styled.button`
@@ -39,9 +40,6 @@ export const PaginationButton = styled.button`
     background-color: #0b1623;
     color: #ffffff;
   }
-  &:active {
-    background-color: red;
-  }
 `;
 export const List = styled.div`
   display: flex;
@@ -49,7 +47,7 @@ export const List = styled.div`
   flex-wrap: wrap;  
   align-items: center;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 1rem;
   width: 100%;
   height: auto;
   min-height: 80vh;

@@ -26,7 +26,7 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState<string>('');
     const [order, setOrder] = useState<string>('');
-    const [movieName, setMovieName] = useState<string>(''); // Nuevo estado para la palabra clave de búsqueda
+    const [movieName, setMovieName] = useState<string>('');
     const [isFilterMenuVisible, setIsFilterMenuVisible] = useState<boolean>(false);
 
     useEffect(() => {
@@ -66,10 +66,10 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
 
     const handleResetFilters = () => {
         setSelectedGenres([]);
-        setSortBy('numVotes');
+        setSortBy('vote_count');
         setOrder('desc');
         setMovieName(''); // Restablecer la palabra clave de búsqueda al resetear los filtros
-        onFilterChange({ genres: [], sortBy: 'numVotes', order: 'desc', movieName: '' });
+        onFilterChange({ genres: [], sortBy: 'vote_count', order: 'desc', movieName: '' });
     };
 
     const toggleFilterMenu = () => {
@@ -85,16 +85,16 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
             </ArrowButton>
         </FiltersTitle>
         <FiltersContainer isVisible={isFilterMenuVisible}>
-
             <Sort>
                 <FilterSubcontainer>
                     <FiltersSubtitle>Sort By</FiltersSubtitle>
                     <Select value={sortBy} onChange={handleSortByChange}>
                         <option value="vote_average">Rating</option>
-                        <option value="title">Title</option>
+                        <option value="vote_count">Number of votes</option>
                         <option value="release_date">Release Date</option>
                         <option value="runtime">Runtime</option>
                         <option value="popularity">Popularity</option>
+                        <option value="title">Title</option>
                     </Select>
                 </FilterSubcontainer>
                 <FilterSubcontainer>

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const MovieContainer = styled.div`
   display: flex;
   width: 100%;
-  height: auto;
   flex-direction: column;
   background-color: #0b1623;
 `;
@@ -11,30 +10,39 @@ export const MovieData = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 2rem;
   gap: 1rem;
-  margin-bottom: 5rem;
+  width: 100%;
+  height: 60vh;
 `;
 export const Image = styled.img`
-  height: 35rem;
+  height: 100%;
   width: auto;
 `;
 export const Data = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #0b1623;
-  height: 50vh;
+  width: 70%;
 `;
 export const MovieTitle = styled.h1`
   font-size: 3rem;
   color: #ffffff;
+`;
+export const MovieTitleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  align-self: flex-start;
+  color: #ffffff;
+  gap: 2rem;
 `;
 export const MovieSubitle = styled.h2`
   font-size: 2rem;
   color: #ffffff;
   text-align: center;
   background-color: #0b1623;
-  padding: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 export const MovieText = styled.p`
   font-size: 1rem;
@@ -77,4 +85,9 @@ export const Multimedia = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 5rem;
+`;
+export const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 `;
