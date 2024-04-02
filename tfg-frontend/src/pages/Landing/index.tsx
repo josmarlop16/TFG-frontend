@@ -1,10 +1,13 @@
 import React from 'react';
-import { LandingContainer, LandingTitle, LottieContainer, ButtonsContainer, StyledLink } from './styles.ts';
+import { LandingContainer, LandingTitle, LottieContainer, ButtonsContainer, StyledLink, AuthContainer } from './styles.ts';
 import Carousel from '../Carousel/index.tsx';
 import Lottie from 'react-lottie';
 import landingAnimation from "../../lotties/landing-animation.json";
+import Recommendations from '../Recomendations/index.tsx';
 
 const Landing = () => {
+  const userId = sessionStorage.getItem('userId'); // Obtener userId del sessionStorage
+
   const texts = [
     "Discover detailed information about your favorite movies!",
     "Explore the biography and filmography of your favorite actors!",
@@ -23,7 +26,8 @@ const Landing = () => {
 
   return (
     <LandingContainer>
-      <LottieContainer>
+      <AuthContainer>
+        <LottieContainer>
         <Lottie 
           options={defaultOptions}
           height={200}
@@ -36,6 +40,8 @@ const Landing = () => {
         </ButtonsContainer>
       </LottieContainer>
       <Carousel texts={texts} />
+      </AuthContainer>
+      {userId && <Recommendations />}
     </LandingContainer>
   );
 }

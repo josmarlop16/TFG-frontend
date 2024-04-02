@@ -3,34 +3,34 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export const LandingContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    height: 90vh;
-`
-
+    height: 90%;
+    background-color: #0b1623;
+`;
 export const LandingTitle = styled.h1`
     width: 50vw;
     color: #ffffff;
     font-size: 4rem;
     text-align: center;
-`
+`;
 export const Carrousel = styled.image`
     width: 50vw;
     height: auto;
-`
+`;
 export const LottieContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 3rem;
-`
+`;
 export const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 1rem;
     justify-content: center;
-`
+`;
 export const StyledLink = styled(RouterLink)`
     display: flex;
     justify-content: center;
@@ -49,4 +49,12 @@ export const StyledLink = styled(RouterLink)`
         background-color: #ffffff;
         box-shadow: 2px 2px 2px 1px #bae8e8;
     }
-`
+`;
+export const AuthContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+`;

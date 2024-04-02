@@ -16,7 +16,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
   const { _id, title, vote_average, genres, poster_path } = movie; // Corrige los nombres de las propiedades
 
   const handleMovieClick = () => {
-    console.log('Movie clicked:', _id);
     navigate(`/movie/${_id}`);
   };
 

@@ -12,7 +12,7 @@ export const MovieData = styled.div`
   justify-content: center;
   gap: 1rem;
   width: 100%;
-  height: 60vh;
+  height: 65vh;
 `;
 export const Image = styled.img`
   height: 100%;

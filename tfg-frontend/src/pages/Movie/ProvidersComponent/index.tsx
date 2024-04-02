@@ -7,7 +7,12 @@ interface ProviderComponentProps {
 }
 
 const ProviderComponent: React.FC<ProviderComponentProps> = ({ providers }) => {
-  const allProviders: Provider[] = [...providers.buy, ...providers.flatrate];
+  // Verificar si providers.flatrate es un array, de lo contrario, usar un array vacío
+  const flatrateProviders = Array.isArray(providers.flatrate) ? providers.flatrate : [];
+  // Verificar si providers.buy es un array, de lo contrario, usar un array vacío
+  const buyProviders = Array.isArray(providers.buy) ? providers.buy : [];
+
+  const allProviders: Provider[] = [...flatrateProviders, ...buyProviders];
 
   const uniqueProviders: Provider[] = allProviders.reduce((acc: Provider[], current: Provider) => {
     if (!acc.find((provider: Provider) => provider.provider_name === current.provider_name)) {

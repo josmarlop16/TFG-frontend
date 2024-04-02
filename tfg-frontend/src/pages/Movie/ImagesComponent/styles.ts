@@ -4,7 +4,7 @@ export const MediaCarrousel = styled.div`
   display: flex;
   overflow-x: scroll;
   width: 100%;
-  height: 55%;
+  height: fit-content;
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;

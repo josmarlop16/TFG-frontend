@@ -128,7 +128,6 @@ const UserProfile = () => {
               <MovieCard key={movie._id} movie={movie}/>
             ))}
           </List>
-          <UserTitle>Recomendations</UserTitle>
           <Recommendations/>
         </MoviesContainer>
       )}
