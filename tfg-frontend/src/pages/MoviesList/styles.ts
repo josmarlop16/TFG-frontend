@@ -61,3 +61,13 @@ export const Horizontal = styled.hr`
   width: 80%;
   align-self: center;
 `;
+
+export const Message = styled.p`
+display: flex;
+justify-self: center;
+align-self: center;
+  width: 40%;
+  font-size: 1rem;
+  text-align: center;
+  color: #ffffff;
+`;

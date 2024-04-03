@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from '../MovieCard/index.tsx';
 import Filters from '../Filters';
-import SearchBar from '../SearchBar'; // Importa el componente SearchBar
 import { Movie } from '../../types/movie.ts';
-import { List, PaginationContainer, PaginationButton, ListContainer, Horizontal } from './styles.ts';
+import { List, PaginationContainer, PaginationButton, ListContainer, Horizontal, Message } from './styles.ts';
 import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
 import EmptyAnimaton from "../../lotties/empty-animation.json";
@@ -15,22 +14,33 @@ const MoviesList = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [filters, setFilters] = useState<{ genres: string[], sortBy: string, order: string, movieName: string }>({
+  const [filters, setFilters] = useState<{
+    genres: string[],
+    sortBy: string,
+    order: string,
+    movieName: string,
+    staffName: string // Agregar staffName al estado de los filtros
+  }>({
     genres: [],
     sortBy: 'numVotes',
     order: 'desc',
-    movieName: '' // Inicializa el estado de la palabra clave de búsqueda
+    movieName: '',
+    staffName: '' // Inicializar staffName como una cadena vacía
   });
 
   useEffect(() => {
     setIsLoading(true);
     let url = `http://localhost:4000/movies/all?sortBy=${filters.sortBy}&order=${filters.order}&page=${page}`;
-    if (filters.genres && filters.genres.length > 0) { // Verifica si genres está definido y no está vacío
+    if (filters.genres && filters.genres.length > 0) {
       url += `&genres=${filters.genres.join(',')}`;
     }
-    if (filters.movieName.trim() !== '') { // Agrega la palabra clave de búsqueda a la URL si está presente
+    if (filters.movieName.trim() !== '') {
       url += `&movieName=${encodeURIComponent(filters.movieName.trim())}`;
     }
+    if (filters.staffName.trim() !== '') { // Agregar condición para la búsqueda por actor
+      url += `&staffName=${encodeURIComponent(filters.staffName.trim())}`;
+    }
+    console.log(url)
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -42,7 +52,7 @@ const MoviesList = () => {
         console.error('Error fetching movies:', error);
         setIsLoading(false);
       });
-  }, [page, filters]); // Agrega 'filters' como dependencia para que se vuelva a cargar cuando cambie la palabra clave de búsqueda o los filtros
+  }, [page, filters]);
 
   const handlePrevPage = () => {
     setPage(prevPage => Math.max(prevPage - 1, 1));
@@ -64,24 +74,20 @@ const MoviesList = () => {
     setPage(selectedPage);
   };
 
-  const handleFilterChange = (newFilters: { genres: string[], sortBy: string, order: string, movieName: string }) => {
+  const handleFilterChange = (newFilters: {
+    genres: string[],
+    sortBy: string,
+    order: string,
+    movieName: string,
+    staffName: string // Agregar staffName a la firma de la función de devolución de llamada
+  }) => {
     setFilters(newFilters);
-    setPage(1); // Reinicia la página al cambiar los filtros
-  };
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchQuery = event.target.value;
-    setFilters({ ...filters, movieName: searchQuery });
+    setPage(1);
   };
 
   return (
     <ListContainer>
       <Filters onFilterChange={handleFilterChange} />
-      <SearchBar 
-        value={filters.movieName} 
-        onChange={handleSearch} 
-        placeholder="Search any movie..." 
-      />
       <Horizontal/>
       {isLoading && (
         <div style={{ 
@@ -106,18 +112,24 @@ const MoviesList = () => {
       {!isLoading && (
         <>
           {movies.length === 0 ? (
-            <Lottie 
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: EmptyAnimaton,
-                rendererSettings: {
-                  preserveAspectRatio: "xMidYMid slice"
-                }
-              }}
-              height={200}
-              width={200}
-            />
+            <>
+              <Lottie
+                options={{
+                  loop: true,
+                  autoplay: true,
+                  animationData: EmptyAnimaton,
+                  rendererSettings: {
+                    preserveAspectRatio: "xMidYMid slice"
+                  }
+                }}
+                height={200}
+                width={200} />
+                <Message>
+                  If you can't find the movie you're looking for, 
+                  don't fret, just double-check your filters like 
+                  the cinematic hound you are!
+                </Message>
+            </>
           ) : (
             <List>
               {movies.map((movie, index) => (

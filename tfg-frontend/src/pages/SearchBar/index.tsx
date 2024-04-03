@@ -5,18 +5,22 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface SearchBarProps {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   placeholder: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
+
   return (
     <SearchBarContainer>
       <InputContainer>
         <Input
           placeholder={placeholder}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <IconContainer>
           <FontAwesomeIcon icon={faSearch} />

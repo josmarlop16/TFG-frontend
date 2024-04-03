@@ -40,4 +40,5 @@ export const SearchBarContainer = styled.form`
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
+  width: 100%;
 `;

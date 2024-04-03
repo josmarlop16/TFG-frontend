@@ -10,7 +10,7 @@ const Landing = () => {
 
   const texts = [
     "Discover detailed information about your favorite movies!",
-    "Explore the biography and filmography of your favorite actors!",
+    "Explore the filmography of your favorite actors!",
     "Create and organize personalized movie lists by genre, director, and more!",
     "Uncover a new movie recommendation system based on your tastes and preferences!"
   ];
