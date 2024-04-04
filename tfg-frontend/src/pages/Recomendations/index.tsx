@@ -9,6 +9,7 @@ import LoadingAnimation from "../../lotties/loading-animation.json";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
 import { RefreshButton, TitleContainer } from './styles';
+import toast from 'react-hot-toast';
 
 const Recommendations = () => {
   const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
@@ -22,8 +23,8 @@ const Recommendations = () => {
           userId: userId,
         });
         setRecommendedMovies(response.data);
-      } catch (error) {
-        console.error('Error fetching recommended movies:', error);
+      } catch (error:any) {
+        toast.error('Error fetching recommended movies:', error);
       } finally {
         setLoading(false); // Cambia el estado de carga a falso después de recibir la respuesta o en caso de error
       }

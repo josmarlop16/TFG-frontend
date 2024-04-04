@@ -34,7 +34,6 @@ const Login = () => {
       navigate('/');
       
     } catch (error:any) {
-      console.log(error);
       toast.error('Some error occured during login, check your credentials')
     }
   };

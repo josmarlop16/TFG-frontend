@@ -31,7 +31,6 @@ const UserProfile = () => {
   const [userEmail, setUserEmail] = useState<string>('');
   const [avatar, setAvatar] = useState<string>('');
   const [editing, setEditing] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,8 +39,8 @@ const UserProfile = () => {
           userId: sessionStorage.getItem('userId'),
         });
         setUserData(response.data.user);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      } catch (error:any) {
+        toast.error('Error fetching user data:', error);
       }
     };
 

@@ -9,6 +9,7 @@ import {
   LogoutForm
 } from './styles';
 import { useUser } from '../../hooks/userContext';
+import toast from 'react-hot-toast';
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -34,12 +35,12 @@ const Logout = () => {
       if (response.status === 200) {
         clearUser()
       } else {
-        console.error("Loggin out error!");
+        toast.error('Loggin out error!');
       }
       // Redirigir al usuario a la página de inicio
       navigate('/');
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+    } catch (error:any) {
+      toast.error('Loggin out error!', error);
     }
   };
 

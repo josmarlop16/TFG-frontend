@@ -15,10 +15,10 @@ export const Card = styled.div`
     position: relative;
     width: 19%;
     height: 380px;
-    background: #000; 
+    background: #0b1620;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); 
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
     cursor: pointer;
     transition: transform 0.3s ease;
     &:hover ${Details} {
@@ -57,4 +57,10 @@ export const Subtitle = styled.h2`
   margin-bottom: 1rem;
   text-align: center;
   text-overflow: ellipsis;
+`;
+export const NoPosterText = styled.p`
+  color: #ffffff;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 7rem;
 `;

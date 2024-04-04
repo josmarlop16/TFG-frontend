@@ -8,6 +8,7 @@ import LoadingAnimation from "../../lotties/loading-animation.json";
 import EmptyAnimaton from "../../lotties/empty-animation.json";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import toast from 'react-hot-toast';
 
 const MoviesList = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -45,15 +46,10 @@ const MoviesList = () => {
       .then(data => {
         setMovies(data.movies);
         setTotalPages(data.totalPages);
-        console.log(data.movies[0].poster_path);
-        console.log(data.movies[1].poster_path);
-        console.log(data.movies[2].poster_path);
-        console.log(data.movies[3].poster_path);
-        console.log(data.movies[4].poster_path);
         setIsLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching movies:', error);
+        toast.error('Error fetching movies', error);
         setIsLoading(false);
       });
   }, [page, filters]);

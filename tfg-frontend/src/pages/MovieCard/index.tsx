@@ -1,11 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate en lugar de useHistory
-import { Card, Poster, Details, Title, Subtitle, Image } from './styles';
-import { Movie } from '../../types/movie'; // No es necesario especificar la extensión .ts en la importación
+import { useNavigate } from 'react-router-dom';
+import { Card, Poster, Details, Title, Subtitle, Image, NoPosterText } from './styles';
+import { Movie } from '../../types/movie';
 import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCouch, faTicket } from '@fortawesome/free-solid-svg-icons';
+import { faCouch } from '@fortawesome/free-solid-svg-icons';
 
 interface MovieCardProps {
   movie: Movie;
@@ -40,10 +40,14 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
       {!isLoading && (
         <>
           <Poster>
-            <Image
-              src={poster_path ? `https://image.tmdb.org/t/p/original${poster_path}` : '../../../public/no-poster.jpg'}
-              alt={`${title} Poster`}      
-            />
+            {poster_path ? (
+              <Image
+                src={`https://image.tmdb.org/t/p/original${poster_path}`}
+                alt={`${title} Poster`}
+              />
+            ) : (
+              <NoPosterText>No poster available</NoPosterText>
+            )}
           </Poster>
           <Details>
             <Title>{title}</Title>

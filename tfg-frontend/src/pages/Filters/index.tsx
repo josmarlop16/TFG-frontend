@@ -18,6 +18,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../SearchBar';
+import toast from 'react-hot-toast';
 
 interface FiltersProps {
   onFilterChange: (filters: { genres: string[], sortBy: string, order: string, movieName: string, staffName: string }) => void;
@@ -38,7 +39,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
         setGenres(response.data);
       })
       .catch(error => {
-        console.error('Error fetching genres:', error);
+        toast.error('Error fetching genres, still working on it!', error);
       });
   }, []);
 

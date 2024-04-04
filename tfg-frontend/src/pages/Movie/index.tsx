@@ -12,7 +12,7 @@ import ImageComponent from './ImagesComponent';
 import TrailerComponent from './TrailersComponent';
 import ProviderComponent from './ProvidersComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCouch, faHeart, faTicket } from '@fortawesome/free-solid-svg-icons';
+import { faCouch, faHeart } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 
 interface CrewMember {
@@ -46,7 +46,7 @@ const MovieDetail: React.FC = () => {
         setIsLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching movie details:', error);
+        toast.error('Error fetching movie details', error);
         setIsLoading(false);
       });
   }, [movieId]);
@@ -87,8 +87,8 @@ const MovieDetail: React.FC = () => {
       } else {
         toast.success("Movie added to your preferences!");
       }
-    } catch (error) {
-      console.error('Error al agregar la película a las preferencias:', error);
+    } catch (error:any) {
+      toast.error('Error during preferences adding process', error);
     }
   };
 
