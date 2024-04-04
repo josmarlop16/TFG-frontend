@@ -1,3 +1,4 @@
+// Filters.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -22,7 +23,7 @@ interface FiltersProps {
   onFilterChange: (filters: { genres: string[], sortBy: string, order: string, movieName: string, staffName: string }) => void;
 }
 
-const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
+const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   const [genres, setGenres] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<string>('');
@@ -56,7 +57,8 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
     setOrder(event.target.value);
   };
 
-  const handleApplyFilters = () => {
+  const handleApplyFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
     const filters = {
       genres: selectedGenres,
       sortBy,
@@ -67,7 +69,8 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
     onFilterChange(filters);
   };
 
-  const handleResetFilters = () => {
+  const handleResetFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
     setSelectedGenres([]);
     setSortBy('vote_count');
     setOrder('desc');
@@ -86,7 +89,6 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
 
   const handleStaffSearchChange = (value: string) => {
     setStaffName(value);
-
   };
 
   return (
@@ -152,4 +154,4 @@ const Filter: React.FC<FiltersProps> = ({ onFilterChange }) => {
   );
 }
 
-export default Filter;
+export default Filters;

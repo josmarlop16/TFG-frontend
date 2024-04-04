@@ -40,12 +40,16 @@ const MoviesList = () => {
     if (filters.staffName.trim() !== '') { // Agregar condición para la búsqueda por actor
       url += `&staffName=${encodeURIComponent(filters.staffName.trim())}`;
     }
-    console.log(url)
     fetch(url)
       .then(response => response.json())
       .then(data => {
         setMovies(data.movies);
         setTotalPages(data.totalPages);
+        console.log(data.movies[0].poster_path);
+        console.log(data.movies[1].poster_path);
+        console.log(data.movies[2].poster_path);
+        console.log(data.movies[3].poster_path);
+        console.log(data.movies[4].poster_path);
         setIsLoading(false);
       })
       .catch(error => {

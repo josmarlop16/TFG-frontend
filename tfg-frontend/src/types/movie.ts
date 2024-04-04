@@ -37,6 +37,7 @@ export interface Movie {
   poster_path: string;
   media: Media;
   providers: Providers;
+  runtime: number;
 }
 
 export interface RelatedMovie extends Movie {

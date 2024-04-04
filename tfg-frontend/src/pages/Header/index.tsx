@@ -30,12 +30,12 @@ const Header = () => {
 
 const HeaderContent = () => {
   const isLoggedIn = sessionStorage.getItem('token');
-  const username = sessionStorage.getItem('username')|| '';
+  const username = sessionStorage.getItem('username') || '';
   const location = useLocation();
   const [key, setKey] = useState(location.pathname);
 
   useEffect(() => {
-    setKey(location.pathname);
+    setKey(location.pathname + location.search);
   }, [location]);
 
   return (

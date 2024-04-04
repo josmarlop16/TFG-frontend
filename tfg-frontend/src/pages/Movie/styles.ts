@@ -10,13 +10,15 @@ export const MovieData = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: flex-start;
   gap: 1rem;
   width: 100%;
-  height: 65vh;
+  height: 80vh;
 `;
 export const Image = styled.img`
-  height: 100%;
+  height: auto;
   width: auto;
+  max-width: 373px;
 `;
 export const Data = styled.div`
   display: flex;
@@ -30,11 +32,10 @@ export const MovieTitle = styled.h1`
 export const MovieTitleContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   width: 90%;
-  align-self: flex-start;
   color: #ffffff;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 0.5rem;
 `;
 export const MovieSubitle = styled.h2`
   font-size: 2rem;
@@ -47,6 +48,7 @@ export const MovieSubitle = styled.h2`
 export const MovieText = styled.p`
   font-size: 1rem;
   color: #ffffff;
+  max-width: 100%;
 `;
 export const Cast = styled.ul`
   display: flex;

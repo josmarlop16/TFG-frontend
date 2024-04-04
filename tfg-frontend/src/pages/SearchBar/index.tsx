@@ -1,7 +1,9 @@
+// SearchBar.tsx
 import React from 'react';
 import { InputContainer, Input, IconContainer, SearchBarContainer } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import toast from 'react-hot-toast';
 
 interface SearchBarProps {
   value: string;
@@ -14,6 +16,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder }) =
     onChange(event.target.value);
   };
 
+  // Manejar la pulsación de tecla Enter para prevenir el comportamiento predeterminado
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      toast('Is this your final search? Click in "Apply Filters"', {
+        icon: '😉',
+      });
+      event.preventDefault(); 
+    }
+  };
+
   return (
     <SearchBarContainer>
       <InputContainer>
@@ -21,6 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder }) =
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
+          onKeyDown={handleKeyDown} // Agregar el controlador de eventos de teclado
         />
         <IconContainer>
           <FontAwesomeIcon icon={faSearch} />

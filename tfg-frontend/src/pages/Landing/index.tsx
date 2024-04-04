@@ -6,7 +6,7 @@ import landingAnimation from "../../lotties/landing-animation.json";
 import Recommendations from '../Recomendations/index.tsx';
 
 const Landing = () => {
-  const userId = sessionStorage.getItem('userId'); // Obtener userId del sessionStorage
+  const userId = sessionStorage.getItem('userId');
 
   const texts = [
     "Discover detailed information about your favorite movies!",

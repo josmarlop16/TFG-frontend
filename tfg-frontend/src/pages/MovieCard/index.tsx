@@ -4,6 +4,8 @@ import { Card, Poster, Details, Title, Subtitle, Image } from './styles';
 import { Movie } from '../../types/movie'; // No es necesario especificar la extensión .ts en la importación
 import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCouch, faTicket } from '@fortawesome/free-solid-svg-icons';
 
 interface MovieCardProps {
   movie: Movie;
@@ -39,8 +41,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
         <>
           <Poster>
             <Image
-              src={`https://image.tmdb.org/t/p/original${poster_path}`} // Añade la parte delantera de la URL al poster
-              alt={`${title} Poster`}
+              src={poster_path ? `https://image.tmdb.org/t/p/original${poster_path}` : '../../../public/no-poster.jpg'}
+              alt={`${title} Poster`}      
             />
           </Poster>
           <Details>
@@ -48,7 +50,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
             <Subtitle>{genres ? genres.join(', ') : ''}</Subtitle>
             <div className="rating">
               {Array.from({ length: Math.floor(vote_average) }, (_, index) => (
-                <span key={index}>🍿</span>
+                <FontAwesomeIcon key={index} icon={faCouch} style={{marginRight: '0.1rem'}}/>
               ))}
               <span>{vote_average}/10</span>
             </div>

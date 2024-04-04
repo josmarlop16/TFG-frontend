@@ -1,12 +1,21 @@
 import React from 'react';
 import { ProviderContainer, ProviderCard, ProviderLogo, ProviderName } from './styles';
 import { Providers, Provider } from '../../../types/movie';
+import { MovieText } from '../styles';
 
 interface ProviderComponentProps {
-  providers: Providers;
+  providers: Providers | null; // Cambiado para permitir valores nulos
 }
 
 const ProviderComponent: React.FC<ProviderComponentProps> = ({ providers }) => {
+  if (!providers) {
+    return (
+      <ProviderContainer>
+        <MovieText>There are no providers available at the moment.</MovieText>
+      </ProviderContainer>
+    );
+  }
+
   // Verificar si providers.flatrate es un array, de lo contrario, usar un array vacío
   const flatrateProviders = Array.isArray(providers.flatrate) ? providers.flatrate : [];
   // Verificar si providers.buy es un array, de lo contrario, usar un array vacío

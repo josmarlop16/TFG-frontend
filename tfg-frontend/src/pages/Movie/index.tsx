@@ -12,7 +12,7 @@ import ImageComponent from './ImagesComponent';
 import TrailerComponent from './TrailersComponent';
 import ProviderComponent from './ProvidersComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faCouch, faHeart, faTicket } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 
 interface CrewMember {
@@ -97,7 +97,10 @@ const MovieDetail: React.FC = () => {
   return (
     <MovieContainer>
       <MovieData>
-        <Image src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt={`${film.title} Poster`} />
+        <Image
+          src={film.poster_path ? `https://image.tmdb.org/t/p/original${film.poster_path}` : '../../../public/no-poster.png'}
+          alt={`${film.title} Poster`}
+        />
         <Data>
           <MovieTitleContainer>
             <MovieTitle>{film.title} ({new Date(film.release_date).getFullYear()})</MovieTitle>
@@ -107,11 +110,12 @@ const MovieDetail: React.FC = () => {
           </MovieTitleContainer>
           <MovieText>
             {Array.from({ length: Math.floor(film.vote_average) }, (_, index) => (
-              <span key={index}>🍿</span>
+                <FontAwesomeIcon key={index} icon={faCouch} style={{marginRight: '0.1rem'}}/>
             ))}
             {film.vote_average}/10
           </MovieText>
           <MovieText>{film.genres.join(', ')}</MovieText>
+          <MovieText>{film.runtime} minutes</MovieText>
           <MovieText>{film.overview}</MovieText>
           <ProviderComponent providers={providers} />
             {media.images ? (
@@ -122,6 +126,7 @@ const MovieDetail: React.FC = () => {
                 flexDirection: 'column',
                 justifyContent: 'center', 
                 alignItems: 'center', 
+                width: '100%',
                 height: '30vh' }}>
                   <Lottie 
                     options={{
@@ -148,7 +153,8 @@ const MovieDetail: React.FC = () => {
             display: 'flex', 
             flexDirection: 'column',
             justifyContent: 'center', 
-            alignItems: 'center', 
+            alignItems: 'center',
+            width: '100%',
             height: '30vh' }}>
               <Lottie 
                 options={{
@@ -177,7 +183,8 @@ const MovieDetail: React.FC = () => {
           display: 'flex', 
           flexDirection: 'column',
           justifyContent: 'center', 
-          alignItems: 'center', 
+          alignItems: 'center',
+          width: '100%',
           height: '30vh' }}>
             <Lottie 
               options={{

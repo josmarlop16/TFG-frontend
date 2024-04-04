@@ -9,7 +9,7 @@ export const Cast = styled.ul`
   flex-direction: row;
   flex-wrap: wrap;
   overflow-x: scroll;
-  width: 90%;
+  width: 100%;
   height: 35vh;
   gap: 2rem;
   align-self: center;
