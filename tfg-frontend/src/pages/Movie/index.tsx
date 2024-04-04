@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Media, Movie, Providers, RelatedMovie } from '../../types/movie';
 import Lottie from 'react-lottie';
@@ -14,6 +14,7 @@ import ProviderComponent from './ProvidersComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch, faHeart } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
+import { NoPosterText } from '../MovieCard/styles';
 
 interface CrewMember {
   _id: string;
@@ -35,6 +36,7 @@ const MovieDetail: React.FC = () => {
   const { movieId } = useParams<{ movieId: string }>();
   const [movieData, setMovieData] = useState<MovieDetailData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const isLoggedIn = sessionStorage.getItem('token');
   const [, setIsLoadingMedia] = useState<boolean>(true);
 
 
@@ -97,15 +99,25 @@ const MovieDetail: React.FC = () => {
   return (
     <MovieContainer>
       <MovieData>
-        <Image
-          src={film.poster_path ? `https://image.tmdb.org/t/p/original${film.poster_path}` : '../../../public/no-poster.png'}
-          alt={`${film.title} Poster`}
-        />
+        {film.poster_path ? (
+          <Image
+            src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
+            alt={`${film.title} Poster`}
+          />
+        ) : (
+          <NoPosterText>No poster available</NoPosterText>
+        )}
         <Data>
           <MovieTitleContainer>
             <MovieTitle>{film.title} ({new Date(film.release_date).getFullYear()})</MovieTitle>
             <Button>
-              <FontAwesomeIcon size='2x' icon={faHeart} onClick={handleAddToPreferences} color='white'/>
+              {isLoggedIn ? (
+                <FontAwesomeIcon size='2x' icon={faHeart} onClick={handleAddToPreferences} color='white'/>
+              ) : (
+                <Link to="/register">
+                  <FontAwesomeIcon size='2x' icon={faHeart} color='white'/>
+                </Link>
+              )}
             </Button>
           </MovieTitleContainer>
           <MovieText>

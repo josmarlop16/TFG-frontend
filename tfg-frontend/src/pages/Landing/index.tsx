@@ -26,6 +26,8 @@ const Landing = () => {
 
   return (
     <LandingContainer>
+      {userId ? 
+      (<Recommendations />) : (
       <AuthContainer>
         <LottieContainer>
         <Lottie 
@@ -38,10 +40,10 @@ const Landing = () => {
           <StyledLink to="/login">Log in</StyledLink>
           <StyledLink to="/register">Register</StyledLink>
         </ButtonsContainer>
-      </LottieContainer>
-      <Carousel texts={texts} />
+        </LottieContainer>
+        <Carousel texts={texts} />
       </AuthContainer>
-      {userId && <Recommendations />}
+      )}
     </LandingContainer>
   );
 }
