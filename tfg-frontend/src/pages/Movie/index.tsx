@@ -30,14 +30,16 @@ interface MovieDetailData {
   providers: Providers;
 }
 
-
-
 const MovieDetail: React.FC = () => {
   const { movieId } = useParams<{ movieId: string }>();
   const [movieData, setMovieData] = useState<MovieDetailData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const isLoggedIn = sessionStorage.getItem('token');
   const [, setIsLoadingMedia] = useState<boolean>(true);
+
+  const isLoggedIn = sessionStorage.getItem('token');
+  const preferencesString = sessionStorage.getItem('preferences');
+  const preferences = preferencesString ? JSON.parse(preferencesString) : null;
+  const [isInPreferences, setIsInPreferences] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -58,6 +60,16 @@ const MovieDetail: React.FC = () => {
       setIsLoadingMedia(false);
     }
   }, [movieData]);
+
+  useEffect(() => {
+    // Verifica si la película está en las preferencias del usuario
+    if (preferences && preferences.movies) {
+      setIsInPreferences(preferences.movies.some((p: { _id: string }) => p._id === movieId));
+    } else {
+      setIsInPreferences(false);
+    }
+  }, [movieId, preferences]);
+
 
   if (isLoading || !movieData) {
     return (
@@ -83,16 +95,61 @@ const MovieDetail: React.FC = () => {
         movieId: movieId
       });
 
-      // Si la película ya está en las preferencias del usuario, muestra el mensaje emergente
       if (response.data.message === "La película ya está en las preferencias del usuario.") {
-        toast.error("Movie is already on your preferences.");
+        toast.error("La película ya está en tus preferencias.");
       } else {
-        toast.success("Movie added to your preferences!");
+        // Actualiza el estado de las preferencias en sessionStorage
+        await updatePreferencesInSessionStorage();
+        setIsInPreferences(true); // Actualiza el estado del botón
+        toast.success("Película añadida a tus preferencias!");
       }
     } catch (error:any) {
-      toast.error('Error during preferences adding process', error);
+      toast.error('Error durante el proceso de añadir a preferencias', error);
     }
   };
+
+const handleRemoveFromPreferences = async () => {
+  try {
+    const response = await axios.post('http://localhost:4000/remove-preference', {
+      userId: sessionStorage.userId,
+      movieId: movieId
+    });
+
+    if (response.data.message === "La película no está en las preferencias del usuario.") {
+      toast.error("La película no está en tus preferencias.");
+    } else {
+      // Actualiza el estado de las preferencias en sessionStorage
+     await updatePreferencesInSessionStorage();
+      setIsInPreferences(false); // Actualiza el estado del botón
+      toast.success("Película eliminada de tus preferencias!");
+    }
+  } catch (error:any) {
+    toast.error('Error durante el proceso de eliminación de preferencias', error);
+  }
+};
+
+
+
+  const updatePreferencesInSessionStorage = async () => {
+    try {
+      const userId = sessionStorage.userId;
+      if (!userId) {
+        console.error("User ID not found in session storage.");
+        return;
+      }
+
+      // Hacer una petición al servidor para obtener las preferencias actualizadas del usuario
+      const response = await axios.post('http://localhost:4000/user', { userId: sessionStorage.getItem('userId'), });
+
+      const updatedPreferences = response.data.user.preferences;
+
+      // Actualizar las preferencias en sessionStorage con los datos del servidor
+      sessionStorage.setItem('preferences', JSON.stringify(updatedPreferences));
+    } catch (error) {
+      console.error('Error al actualizar las preferencias en sessionStorage:', error);
+    }
+  };
+
 
   const { film, relatedMovies, media, providers } = movieData;
 
@@ -112,7 +169,21 @@ const MovieDetail: React.FC = () => {
             <MovieTitle>{film.title} ({new Date(film.release_date).getFullYear()})</MovieTitle>
             <Button>
               {isLoggedIn ? (
-                <FontAwesomeIcon size='2x' icon={faHeart} onClick={handleAddToPreferences} color='white'/>
+                isInPreferences ? ( // Verifica si la película está en las preferencias
+                  <FontAwesomeIcon
+                    className="heart-icon selected"
+                    size='2x'
+                    icon={faHeart}
+                    onClick={handleRemoveFromPreferences}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    className="heart-icon"
+                    size='2x'
+                    icon={faHeart}
+                    onClick={handleAddToPreferences}
+                  />
+                )
               ) : (
                 <Link to="/register">
                   <FontAwesomeIcon size='2x' icon={faHeart} color='white'/>

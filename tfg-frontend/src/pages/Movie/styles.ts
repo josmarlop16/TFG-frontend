@@ -92,4 +92,13 @@ export const Button = styled.button`
   cursor: pointer;
   border: none;
   background-color: transparent;
+
+  .heart-icon {
+    transition: color 0.3s ease-in-out;
+    color: white;
+  }
+
+  .heart-icon.selected {
+    color: red;
+  }
 `;
