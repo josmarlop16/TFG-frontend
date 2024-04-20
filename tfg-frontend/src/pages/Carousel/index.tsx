@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Item } from './styles.ts';
 
 interface CarouselProps {
-  texts: string[]; // Tipo explícito para texts
+  texts: string[];
   interval?: number;
 }
 

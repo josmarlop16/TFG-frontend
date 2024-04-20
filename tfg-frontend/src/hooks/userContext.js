@@ -10,13 +10,14 @@ export const UserProvider = ({ children }) => {
     token: sessionStorage.getItem('token') || '',
     email: sessionStorage.getItem('email') || '',
     userId: sessionStorage.getItem('userId') || '',
-    preferences: JSON.parse(sessionStorage.getItem('preferences')) || [], // Parseamos preferences de JSON
+    userLists: JSON.parse(sessionStorage.getItem('userLists') || '[]'), // Si es null, inicializa a un array vacío
+    preferences: JSON.parse(sessionStorage.getItem('preferences') || '[]'), // Parseamos preferences de JSON
   });
 
   const updateUser = (userData) => {
     setUser(userData);
     Object.entries(userData).forEach(([key, value]) => {
-      if (key === 'preferences') {
+      if (key === 'preferences' || key === 'userLists') {
         // Si el key es 'preferences', convertimos el value a JSON
         sessionStorage.setItem(key, JSON.stringify(value));
       } else {
@@ -33,6 +34,7 @@ export const UserProvider = ({ children }) => {
       email: '',
       userId: '',
       preferences: [],
+      userLists: [],
     });
     sessionStorage.clear();
   };

@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  UserAvatar,
-  UserContainer,
-  UserCard,
-  UserData,
-  Username,
-  Useremail,
-  EditForm,
-  EditInput,
-  EditButton,
-  ProfileContainer,
-  UsernameContainer,
-  ButtonsContainer,
-  Button,
-  UserTitle,
-  List,
-  MoviesContainer,
+import { UserAvatar, UserContainer, UserCard, UserData, Username, Useremail, EditForm, EditInput, EditButton, ProfileContainer, UsernameContainer, ButtonsContainer, Button, UserTitle, List, MoviesContainer,
 } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRotateLeft, faUserPen } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +8,7 @@ import toast from 'react-hot-toast';
 import MovieCard from '../MovieCard';
 import { Movie } from '../../types/movie';
 import Recommendations from '../Recomendations';
+import UserLists from './UserLists';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState<any>(null);
@@ -119,6 +104,8 @@ const UserProfile = () => {
           )}
         </UserData>
       </UserCard>
+      <Recommendations/>
+      <UserLists userData={userData} />
       {userData && userData.preferences && userData.preferences.movies && (
         <MoviesContainer>
           <UserTitle>Favourite Movies</UserTitle>
@@ -127,7 +114,7 @@ const UserProfile = () => {
               <MovieCard key={movie._id} movie={movie}/>
             ))}
           </List>
-          <Recommendations/>
+          
         </MoviesContainer>
       )}
     </UserContainer>

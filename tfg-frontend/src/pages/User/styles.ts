@@ -4,6 +4,7 @@ export const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #0b1623;
 `;
 export const UserCard = styled.div`
   display: flex;

@@ -5,14 +5,14 @@ import { Media, Movie, Providers, RelatedMovie } from '../../types/movie';
 import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
 import EmptyAnimation from "../../lotties/empty-box-animation.json";
-import { Button, Data, Image, MovieContainer, MovieData, MovieSubitle, MovieText, MovieTitle, MovieTitleContainer } from './styles';
+import { Button, Data, Image, ListSelect, MovieContainer, MovieData, MovieSubitle, MovieText, MovieTitle, MovieTitleContainer, PosterContainer } from './styles';
 import { List } from '../MoviesList/styles';
 import MovieCard from '../MovieCard';
 import ImageComponent from './ImagesComponent';
 import TrailerComponent from './TrailersComponent';
 import ProviderComponent from './ProvidersComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCouch, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faCouch, faHeart, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import { NoPosterText } from '../MovieCard/styles';
 
@@ -35,6 +35,9 @@ const MovieDetail: React.FC = () => {
   const [movieData, setMovieData] = useState<MovieDetailData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [, setIsLoadingMedia] = useState<boolean>(true);
+
+  const [userLists, setUserLists] = useState<any[]>([]);
+  const [listName, setListName] = useState<string | null>(null);
 
   const isLoggedIn = sessionStorage.getItem('token');
   const preferencesString = sessionStorage.getItem('preferences');
@@ -62,7 +65,6 @@ const MovieDetail: React.FC = () => {
   }, [movieData]);
 
   useEffect(() => {
-    // Verifica si la película está en las preferencias del usuario
     if (preferences && preferences.movies) {
       setIsInPreferences(preferences.movies.some((p: { _id: string }) => p._id === movieId));
     } else {
@@ -70,6 +72,22 @@ const MovieDetail: React.FC = () => {
     }
   }, [movieId, preferences]);
 
+  useEffect(() => {
+    const fetchUserLists = async () => {
+      try {
+        const userId = sessionStorage.getItem('userId');
+        if (userId) {
+          const response = await axios.post('http://localhost:4000/user', { userId });
+          const updatedUserLists = response.data.user.userLists;
+          setUserLists(updatedUserLists);   
+          sessionStorage.setItem('userLists', JSON.stringify(updatedUserLists));
+        }
+      } catch (error: any) {
+        toast.error('Error fetching user lists', error);
+      }
+    };
+    fetchUserLists();
+  }, []);
 
   if (isLoading || !movieData) {
     return (
@@ -150,13 +168,37 @@ const handleRemoveFromPreferences = async () => {
     }
   };
 
+  const handleAddToUserList = async () => {
+    if (!listName) {
+      toast.error('Please select a list');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:4000/user/list/add', {
+        userId: sessionStorage.userId,
+        listName: listName,
+        movieId: movieId
+      });
+
+      if (response.data.message === "Movie already exists in the list.") {
+        toast.error("Movie already exists in the selected list.");
+      } else {
+        toast.success("Movie added to the selected list!");
+      }
+    } catch (error:any) {
+      toast.error('Error adding movie to the list', error);
+    }
+  };
+
 
   const { film, relatedMovies, media, providers } = movieData;
 
   return (
     <MovieContainer>
       <MovieData>
-        {film.poster_path ? (
+        <PosterContainer>
+          {film.poster_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
             alt={`${film.title} Poster`}
@@ -164,6 +206,22 @@ const handleRemoveFromPreferences = async () => {
         ) : (
           <NoPosterText>No poster available</NoPosterText>
         )}
+        {userLists.length > 0 && (
+            <>
+              <ListSelect onChange={(e) => setListName(e.target.value)}>
+                <option value="">Select a list</option>
+                {userLists.map((list) => (
+                  <option key={list.listName} value={list.listName}>{list.listName}</option>
+                ))}
+              </ListSelect>
+              <Button onClick={handleAddToUserList}>
+                <FontAwesomeIcon icon={faPlus} />
+                Add to List
+              </Button>
+            </>
+          )}
+
+        </PosterContainer>
         <Data>
           <MovieTitleContainer>
             <MovieTitle>{film.title} ({new Date(film.release_date).getFullYear()})</MovieTitle>
@@ -171,9 +229,9 @@ const handleRemoveFromPreferences = async () => {
               {isLoggedIn ? (
                 isInPreferences ? ( // Verifica si la película está en las preferencias
                   <FontAwesomeIcon
-                    className="heart-icon selected"
+                    className="trash-icon"
                     size='2x'
-                    icon={faHeart}
+                    icon={faTrashCan}
                     onClick={handleRemoveFromPreferences}
                   />
                 ) : (

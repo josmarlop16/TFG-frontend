@@ -13,9 +13,9 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
-  const navigate = useNavigate(); // Utiliza useNavigate para acceder al historial de navegación
+  const navigate = useNavigate();
 
-  const { _id, title, vote_average, genres, poster_path } = movie; // Corrige los nombres de las propiedades
+  const { _id, title, vote_average, genres, poster_path } = movie;
 
   const handleMovieClick = () => {
     navigate(`/movie/${_id}`);

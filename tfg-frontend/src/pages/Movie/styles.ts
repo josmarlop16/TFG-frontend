@@ -92,13 +92,25 @@ export const Button = styled.button`
   cursor: pointer;
   border: none;
   background-color: transparent;
-
-  .heart-icon {
+  color: white;
+  .heart-icon,
+  .trash-icon {
     transition: color 0.3s ease-in-out;
-    color: white;
   }
-
-  .heart-icon.selected {
+  .heart-icon:hover,
+  .trash-icon:hover {
+    transition: color 0.3s ease-in-out;
     color: red;
   }
+`;
+export const ListSelect = styled.select`
+  border-radius: 0.5rem;
+  font-family: "Montserrat", sans-serif;
+  width: 200px;
+`;
+export const PosterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 `;
