@@ -7,14 +7,15 @@ import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import { NoPosterText } from '../MovieCard/styles';
 import ProviderComponent from '../../components/ProvidersComponent';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+import '@splidejs/splide/css/sea-green';
+import { getFaceIcon } from '../../utils/getFaceIcon';
 
 interface MovieCarouselProps {
   movies: Movie[];
-  isLoading?: boolean;
 }
 
-const MovieCarousel: React.FC<MovieCarouselProps> = ({ movies, isLoading }) => {
+const MovieCarousel: React.FC<MovieCarouselProps> = ({ movies }) => {
+
   const navigate = useNavigate();
 
   const handleMovieClick = (movieId: string) => {
@@ -38,10 +39,8 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({ movies, isLoading }) => {
               <DataContainer>
                 <MovieTitle>{movie.title}</MovieTitle>
                 <MovieText>
-                  {Array.from({ length: Math.floor(movie.vote_average) }, (_, index) => (
-                      <FontAwesomeIcon key={index} icon={faCouch} style={{marginRight: '0.1rem'}}/>
-                  ))}
-                  {movie.vote_average}/10
+                  <FontAwesomeIcon icon={getFaceIcon(movie.vote_average)} style={{marginRight: '0.5rem'}}/>
+                  {movie.vote_average.toFixed(2)}/10
                 </MovieText>
                 <MovieText>{movie.genres ? movie.genres.join(', ') : ''}</MovieText>
                 <MovieText>{movie.overview}</MovieText>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import MovieCarousel from '../MovieCarousel'; // Importa el componente MovieCarousel
+import MovieCarousel from '../MovieCarousel';
 import { Movie } from '../../types/movie';
 import { UserTitle } from '../User/styles';
 import Lottie from 'react-lottie';
@@ -16,22 +16,26 @@ const Recommendations = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchRecommendedMovies = async () => {
-      try {
-        setLoading(true); // Cambia el estado de carga a verdadero al iniciar la solicitud
-        const response = await axios.post('http://localhost:4000/recommended-movies', { 
-          userId: userId,
-        });
-        setRecommendedMovies(response.data);
-      } catch (error:any) {
-        toast.error('Error fetching recommended movies:', error);
-      } finally {
-        setLoading(false); // Cambia el estado de carga a falso después de recibir la respuesta o en caso de error
-      }
-    };
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:4000/recommended-movies', { 
+        userId: userId,
+      });
+      setRecommendedMovies(response.data);
+    } catch (error:any) {
+      toast.error('Error fetching recommended movies:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchRecommendedMovies();
-  }, [userId]);
+    const fetchMovies = async () => {
+      await fetchRecommendedMovies();
+    };
+
+    fetchMovies();
+  }, [userId]); 
 
   const handleReload = () => {
     fetchRecommendedMovies();
@@ -45,22 +49,22 @@ const Recommendations = () => {
           <FontAwesomeIcon icon={faRotate} size='2x'/>
         </RefreshButton>
       </TitleContainer>
-        {loading ? (
-          <Lottie
-            options={{
-              loop: true,
-              autoplay: true,
-              animationData: LoadingAnimation,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice"
-              }
-            }}
-            height={200}
-            width={200}
-          />
-        ) : (
-          <MovieCarousel movies={recommendedMovies} />
-        )}
+      {loading ? (
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: LoadingAnimation,
+            rendererSettings: {
+              preserveAspectRatio: "xMidYMid slice"
+            }
+          }}
+          height={200}
+          width={200}
+        />
+      ) : (
+        <MovieCarousel movies={recommendedMovies} />
+      )}
     </RecommendationContainer>
   );
 };

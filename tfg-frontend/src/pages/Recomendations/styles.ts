@@ -4,6 +4,7 @@ export const RecommendationContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 70vh;
+  width: 95vw;
 `;
 export const TitleContainer = styled.div`
   display: flex;

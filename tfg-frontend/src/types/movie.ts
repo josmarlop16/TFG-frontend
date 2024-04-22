@@ -45,3 +45,17 @@ export interface RelatedMovie extends Movie {
   runtime: number;
   vote_count: number;
 }
+
+export interface MovieDetailData {
+  film: Movie;
+  crew: CrewMember[];
+  relatedMovies: RelatedMovie[];
+  media: Media;
+  providers: Providers;
+}
+
+export interface CrewMember {
+  _id: string;
+  primaryName: string;
+  primaryProfession: string[];
+}
