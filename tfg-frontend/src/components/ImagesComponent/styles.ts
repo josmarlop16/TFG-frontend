@@ -10,7 +10,7 @@ export const MediaCarrousel = styled.div`
   gap: 1rem;
 `;
 export const Image = styled.img`
-  width: 40%;
+  width: 100%;
   height: auto;
   cursor: pointer;
 `;

@@ -1,17 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {
-  RegisterContainer,
-  LoginLabel,
-  RegisterTitle,
-  RegisterSubtitle,
-  RegisterForm,
-  LoginInput,
-  RegisterButton,
-  InputGroup,
-  InputContainer,
-} from './styles.ts';
+import { RegisterContainer, LoginLabel, RegisterTitle, RegisterSubtitle, RegisterForm, LoginInput, RegisterButton, InputGroup, InputContainer } from './styles.ts';
 import { useUser } from '../../hooks/userContext.js';
 import toast from 'react-hot-toast';
 
@@ -23,7 +13,6 @@ const Register = () => {
   const navigate = useNavigate();
   const { updateUser } = useUser();
 
-
   const handleRegister = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
@@ -33,15 +22,15 @@ const Register = () => {
         password,
         avatar,
       });
-
-      const { user } = response.data;
-      updateUser(user);
+      const newUser = response.data.newUser;
+      console.log(newUser);
+      updateUser(newUser);
       navigate('/');
-      
     } catch (error: any) {
-      toast.error(error.response.data.error);
+      toast.error(error.message || 'An error occurred while registering.');
     }
   };
+
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAvatar(event.target.value);

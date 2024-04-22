@@ -63,7 +63,9 @@ function YourLists({ userData }: { userData: UserData }) {
           </UserListCard>
         ))
       ) : (
-        <p>No lists found</p>
+        <MoviesList>
+          <p>No lists found</p>
+        </MoviesList>
       )}
       {!showForm && (
         <EditButton onClick={handleCreateListClick}>Create List</EditButton>

@@ -64,7 +64,7 @@ export const EditInput = styled.input`
 `;
 export const EditButton = styled.button`
   display: flex;
-  width: 30%;
+  width: 20%;
   height: 40px;
   justify-content: center;
   align-items: center;

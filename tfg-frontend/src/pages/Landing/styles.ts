@@ -2,59 +2,77 @@ import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 
 export const LandingContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 90%;
-    background-color: #0b1623;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 90%;
+  background-color: #0b1623;
+`;
+export const UserContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 `;
 export const LandingTitle = styled.h1`
-    width: 50vw;
-    color: #ffffff;
-    font-size: 4rem;
-    text-align: center;
+  color: #ffffff;
+  font-size: 5rem;
+  font-weight: 300;
+  text-align: center;
 `;
 export const Carrousel = styled.image`
-    width: 50vw;
-    height: auto;
+  width: 50vw;
+  height: auto;
 `;
-export const LottieContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+export const AnimationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 `;
 export const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
 `;
 export const StyledLink = styled(RouterLink)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #bae8e8;
-    border: 2px solid #ffffff;
-    border-radius: 0.5rem;
-    width: 30%;
-    height: 40px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    text-decoration: none;
-    color: #000000;
-    transition: all 0.5s ease;
-    &:hover {
-        background-color: #ffffff;
-        box-shadow: 2px 2px 2px 1px #bae8e8;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bae8e8;
+  border: 2px solid #ffffff;
+  border-radius: 0.5rem;
+  width: 30%;
+  height: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  color: #000000;
+  transition: all 0.5s ease;
+  &:hover {
+      background-color: #ffffff;
+      box-shadow: 2px 2px 2px 1px #bae8e8;
+  }
 `;
-export const AuthContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    height: 90vh;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+export const StyledLink2 = styled(RouterLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ffffff;
+  border-radius: 0.5rem;
+  width: 30%;
+  height: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.5s ease;
+  &:hover {
+      background-color: #ffffff;
+      box-shadow: 2px 2px 2px 1px #bae8e8;
+      color: #000000;
+  }
 `;

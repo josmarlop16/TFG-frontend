@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Media, Movie, Providers, RelatedMovie } from '../../types/movie';
-import Lottie from 'react-lottie';
-import LoadingAnimation from "../../lotties/loading-animation.json";
-import EmptyAnimation from "../../lotties/empty-box-animation.json";
 import { Button, Data, Image, ListSelect, MovieContainer, MovieData, MovieSubitle, MovieText, MovieTitle, MovieTitleContainer, PosterContainer } from './styles';
 import { List } from '../MoviesList/styles';
-import MovieCard from '../MovieCard';
-import ImageComponent from './ImagesComponent';
-import TrailerComponent from './TrailersComponent';
-import ProviderComponent from './ProvidersComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCouch, faHeart, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import toast from 'react-hot-toast';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NoPosterText } from '../MovieCard/styles';
+import { getFaceIcon } from '../../utils/getFaceIcon';
+import toast from 'react-hot-toast';
+import MovieCard from '../MovieCard';
+import ImageComponent from '../../components/ImagesComponent';
+import TrailerComponent from '../../components/TrailersComponent';
+import ProviderComponent from '../../components/ProvidersComponent';
+import LoadingAnimationComponent from '../../components/LoadingAnimationComponent';
+import EmptyAnimationComponent from '../../components/EmptyAnimationComponent';
+import PreferencesComponent from '../../components/PreferencesComponent';
+import { handleAddToUserList } from '../../utils/handleUserList';
 
 interface CrewMember {
   _id: string;
@@ -42,7 +44,7 @@ const MovieDetail: React.FC = () => {
   const isLoggedIn = sessionStorage.getItem('token');
   const preferencesString = sessionStorage.getItem('preferences');
   const preferences = preferencesString ? JSON.parse(preferencesString) : null;
-  const [isInPreferences, setIsInPreferences] = useState<boolean>(false);
+  const [, setIsInPreferences] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -91,108 +93,13 @@ const MovieDetail: React.FC = () => {
 
   if (isLoading || !movieData) {
     return (
-      <Lottie
-        options={{
-          loop: true,
-          autoplay: true,
-          animationData: LoadingAnimation,
-          rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice"
-          }
-        }}
-        height={200}
-        width={200}
-      />
+      <LoadingAnimationComponent />
     );
   }
 
-  const handleAddToPreferences = async () => {
-    try {
-      const response = await axios.post('http://localhost:4000/add-preference', {
-        userId: sessionStorage.userId,
-        movieId: movieId
-      });
-
-      if (response.data.message === "La película ya está en las preferencias del usuario.") {
-        toast.error("La película ya está en tus preferencias.");
-      } else {
-        // Actualiza el estado de las preferencias en sessionStorage
-        await updatePreferencesInSessionStorage();
-        setIsInPreferences(true); // Actualiza el estado del botón
-        toast.success("Película añadida a tus preferencias!");
-      }
-    } catch (error:any) {
-      toast.error('Error durante el proceso de añadir a preferencias', error);
-    }
-  };
-
-const handleRemoveFromPreferences = async () => {
-  try {
-    const response = await axios.post('http://localhost:4000/remove-preference', {
-      userId: sessionStorage.userId,
-      movieId: movieId
-    });
-
-    if (response.data.message === "La película no está en las preferencias del usuario.") {
-      toast.error("La película no está en tus preferencias.");
-    } else {
-      // Actualiza el estado de las preferencias en sessionStorage
-     await updatePreferencesInSessionStorage();
-      setIsInPreferences(false); // Actualiza el estado del botón
-      toast.success("Película eliminada de tus preferencias!");
-    }
-  } catch (error:any) {
-    toast.error('Error durante el proceso de eliminación de preferencias', error);
-  }
-};
-
-
-
-  const updatePreferencesInSessionStorage = async () => {
-    try {
-      const userId = sessionStorage.userId;
-      if (!userId) {
-        console.error("User ID not found in session storage.");
-        return;
-      }
-
-      // Hacer una petición al servidor para obtener las preferencias actualizadas del usuario
-      const response = await axios.post('http://localhost:4000/user', { userId: sessionStorage.getItem('userId'), });
-
-      const updatedPreferences = response.data.user.preferences;
-
-      // Actualizar las preferencias en sessionStorage con los datos del servidor
-      sessionStorage.setItem('preferences', JSON.stringify(updatedPreferences));
-    } catch (error) {
-      console.error('Error al actualizar las preferencias en sessionStorage:', error);
-    }
-  };
-
-  const handleAddToUserList = async () => {
-    if (!listName) {
-      toast.error('Please select a list');
-      return;
-    }
-
-    try {
-      const response = await axios.post('http://localhost:4000/user/list/add', {
-        userId: sessionStorage.userId,
-        listName: listName,
-        movieId: movieId
-      });
-
-      if (response.data.message === "Movie already exists in the list.") {
-        toast.error("Movie already exists in the selected list.");
-      } else {
-        toast.success("Movie added to the selected list!");
-      }
-    } catch (error:any) {
-      toast.error('Error adding movie to the list', error);
-    }
-  };
-
-
   const { film, relatedMovies, media, providers } = movieData;
+
+  const roundedRating = film.vote_average.toFixed(2);
 
   return (
     <MovieContainer>
@@ -207,110 +114,44 @@ const handleRemoveFromPreferences = async () => {
           <NoPosterText>No poster available</NoPosterText>
         )}
         {userLists.length > 0 && (
-            <>
-              <ListSelect onChange={(e) => setListName(e.target.value)}>
-                <option value="">Select a list</option>
-                {userLists.map((list) => (
-                  <option key={list.listName} value={list.listName}>{list.listName}</option>
-                ))}
-              </ListSelect>
-              <Button onClick={handleAddToUserList}>
-                <FontAwesomeIcon icon={faPlus} />
-                Add to List
-              </Button>
-            </>
-          )}
-
+          <>
+            <ListSelect onChange={(e) => setListName(e.target.value)}>
+              <option value="">Select a list</option>
+              {userLists.map((list) => (
+                <option key={list.listName} value={list.listName}>{list.listName}</option>
+              ))}
+            </ListSelect>
+            <Button onClick={() => handleAddToUserList(listName, movieId)}>
+              <FontAwesomeIcon icon={faPlus} />
+              Add to List
+            </Button>
+          </>
+        )}
         </PosterContainer>
         <Data>
           <MovieTitleContainer>
             <MovieTitle>{film.title} ({new Date(film.release_date).getFullYear()})</MovieTitle>
-            <Button>
-              {isLoggedIn ? (
-                isInPreferences ? ( // Verifica si la película está en las preferencias
-                  <FontAwesomeIcon
-                    className="trash-icon"
-                    size='2x'
-                    icon={faTrashCan}
-                    onClick={handleRemoveFromPreferences}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    className="heart-icon"
-                    size='2x'
-                    icon={faHeart}
-                    onClick={handleAddToPreferences}
-                  />
-                )
-              ) : (
-                <Link to="/register">
-                  <FontAwesomeIcon size='2x' icon={faHeart} color='white'/>
-                </Link>
-              )}
-            </Button>
+            <PreferencesComponent isLoggedIn={isLoggedIn} movieId={movieId}/>
           </MovieTitleContainer>
           <MovieText>
-            {Array.from({ length: Math.floor(film.vote_average) }, (_, index) => (
-                <FontAwesomeIcon key={index} icon={faCouch} style={{marginRight: '0.1rem'}}/>
-            ))}
-            {film.vote_average}/10
+            <FontAwesomeIcon icon={getFaceIcon(film.vote_average)} style={{marginRight: '0.5rem'}}/>
+            {roundedRating}/10
           </MovieText>
-          <MovieText>{film.genres.join(', ')}</MovieText>
+          <MovieText>{film.genres ? film.genres.join(', ') : ''}</MovieText>
           <MovieText>{film.runtime} minutes</MovieText>
           <MovieText>{film.overview}</MovieText>
           <ProviderComponent providers={providers} />
             {media.images ? (
               <ImageComponent {...media}/>
             ): (
-              <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                width: '100%',
-                height: '30vh' }}>
-                  <Lottie 
-                    options={{
-                      loop: true,
-                      autoplay: true,
-                      animationData: EmptyAnimation,
-                      rendererSettings: {
-                        preserveAspectRatio: "xMidYMid slice"
-                      }
-                    }}
-                    height={200}
-                    width={200}
-                  />
-                  <MovieText>No images available at the moment</MovieText>
-              </div>
+              <EmptyAnimationComponent text="No images available at the moment" />
             )}
         </Data>
       </MovieData>
-      <MovieSubitle>Videos</MovieSubitle>
       {media.trailers && media.trailers.length > 0 ? (
         <TrailerComponent {...media}/>
       ) : (
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column',
-            justifyContent: 'center', 
-            alignItems: 'center',
-            width: '100%',
-            height: '30vh' }}>
-              <Lottie 
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: EmptyAnimation,
-                  rendererSettings: {
-                    preserveAspectRatio: "xMidYMid slice"
-                  }
-                }}
-                height={200}
-                width={200}
-              />
-              <MovieText>No videos available at the moment</MovieText>
-          </div>
+        <EmptyAnimationComponent text="No videos available at the moment" />
       )}
       <MovieSubitle>Related</MovieSubitle>
       {media.trailers && media.trailers.length > 0 ? (
@@ -320,27 +161,7 @@ const handleRemoveFromPreferences = async () => {
           ))}
         </List>
       ) : (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column',
-          justifyContent: 'center', 
-          alignItems: 'center',
-          width: '100%',
-          height: '30vh' }}>
-            <Lottie 
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: EmptyAnimation,
-                rendererSettings: {
-                  preserveAspectRatio: "xMidYMid slice"
-                }
-              }}
-              height={200}
-              width={200}
-            />
-            <MovieText>No videos available at the moment</MovieText>
-        </div>
+        <EmptyAnimationComponent text="No related movies at the moment" />
       )}
     </MovieContainer>
   );

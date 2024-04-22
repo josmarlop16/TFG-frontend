@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProviderContainer, ProviderCard, ProviderLogo, ProviderName } from './styles';
-import { Providers, Provider } from '../../../types/movie';
-import { MovieText } from '../styles';
+import { Providers, Provider } from '../../types/movie';
+import { MovieText } from '../../pages/Movie/styles';
 
 interface ProviderComponentProps {
   providers: Providers | null; // Cambiado para permitir valores nulos

@@ -63,3 +63,10 @@ export const NoPosterText = styled.p`
   font-size: 2rem;
   margin-top: 7rem;
 `;
+export const Rating = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+`;

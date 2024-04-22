@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import MovieCard from '../MovieCard';
+import MovieCarousel from '../MovieCarousel'; // Importa el componente MovieCarousel
 import { Movie } from '../../types/movie';
-import { List } from '../MoviesList/styles';
 import { UserTitle } from '../User/styles';
 import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
-import { RefreshButton, TitleContainer } from './styles';
+import { RefreshButton, TitleContainer, RecommendationContainer } from './styles';
 import toast from 'react-hot-toast';
 
 const Recommendations = () => {
@@ -39,34 +38,30 @@ const Recommendations = () => {
   };
 
   return (
-    <>
-    <TitleContainer>
-      <UserTitle>Today, we recommend...</UserTitle>
-      <RefreshButton onClick={handleReload}>
-        <FontAwesomeIcon icon={faRotate} size='2x'/>
-      </RefreshButton>
-    </TitleContainer>
-      {loading ? (
-        <Lottie
-          options={{
-            loop: true,
-            autoplay: true,
-            animationData: LoadingAnimation,
-            rendererSettings: {
-              preserveAspectRatio: "xMidYMid slice"
-            }
-          }}
-          height={200}
-          width={200}
-        />
-      ) : (
-        <List>
-          {recommendedMovies.map((movie: Movie) => (
-            <MovieCard key={movie._id} movie={movie} />
-          ))}
-        </List>
-      )}
-    </>
+    <RecommendationContainer>
+      <TitleContainer>
+        <UserTitle>Today, we recommend...</UserTitle>
+        <RefreshButton onClick={handleReload}>
+          <FontAwesomeIcon icon={faRotate} size='2x'/>
+        </RefreshButton>
+      </TitleContainer>
+        {loading ? (
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: LoadingAnimation,
+              rendererSettings: {
+                preserveAspectRatio: "xMidYMid slice"
+              }
+            }}
+            height={200}
+            width={200}
+          />
+        ) : (
+          <MovieCarousel movies={recommendedMovies} />
+        )}
+    </RecommendationContainer>
   );
 };
 

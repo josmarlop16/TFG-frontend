@@ -10,8 +10,8 @@ export const UserProvider = ({ children }) => {
     token: sessionStorage.getItem('token') || '',
     email: sessionStorage.getItem('email') || '',
     userId: sessionStorage.getItem('userId') || '',
-    userLists: JSON.parse(sessionStorage.getItem('userLists') || '[]'), // Si es null, inicializa a un array vacío
-    preferences: JSON.parse(sessionStorage.getItem('preferences') || '[]'), // Parseamos preferences de JSON
+    userLists: JSON.parse(sessionStorage.getItem('userLists') || '[]'),
+    preferences: JSON.parse(sessionStorage.getItem('preferences') || '[]'),
   });
 
   const updateUser = (userData) => {

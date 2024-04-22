@@ -13,7 +13,7 @@ export const MovieData = styled.div`
   align-items: flex-start;
   gap: 1rem;
   width: 100%;
-  height: 80vh;
+  height: 90vh;
 `;
 export const Image = styled.img`
   height: auto;
@@ -43,7 +43,6 @@ export const MovieSubitle = styled.h2`
   text-align: center;
   background-color: #0b1623;
   margin-top: 2rem;
-  margin-bottom: 2rem;
 `;
 export const MovieText = styled.p`
   font-size: 1rem;
