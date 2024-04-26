@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { RegisterContainer, LoginLabel, RegisterTitle, RegisterSubtitle, RegisterForm, LoginInput, RegisterButton, InputGroup, InputContainer } from './styles.ts';
+import { RegisterContainer, LoginLabel, RegisterTitle, RegisterSubtitle, RegisterForm, LoginInput, RegisterButton, InputGroup, InputContainer } from './styles';
 import { useUser } from '../../hooks/userContext.js';
 import toast from 'react-hot-toast';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const Register = () => {
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,16 +33,16 @@ const Register = () => {
     }
   };
 
-
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAvatar(event.target.value);
   };
 
   return (
+    <AnimatedPage>
     <RegisterContainer>
       <RegisterForm onSubmit={handleRegister}>
         <RegisterTitle>Sign up</RegisterTitle>
-        <RegisterSubtitle>Register to have new features...</RegisterSubtitle>
+        <RegisterSubtitle>Register to have new features... (movie lists, preferences and recommendations)</RegisterSubtitle>
         <InputContainer>
           <InputGroup>
             <LoginInput required type='text' id='username' value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -59,9 +61,11 @@ const Register = () => {
             <LoginLabel>Avatar URL (Optional)</LoginLabel>
           </InputGroup>
           <RegisterButton type="submit">Register</RegisterButton>
+          <RegisterSubtitle>Have an account? No problem! <br/><a href='/login'>Login now!</a></RegisterSubtitle>
         </InputContainer>
       </RegisterForm>
     </RegisterContainer>
+    </AnimatedPage>
   );
 };
 

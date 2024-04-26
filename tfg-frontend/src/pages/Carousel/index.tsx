@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Item } from './styles.ts';
+import { Container, Item } from './styles';
 
 interface CarouselProps {
   texts: string[];

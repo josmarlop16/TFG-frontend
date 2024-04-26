@@ -1,24 +1,17 @@
-// Filters.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   ApplyButton,
   ApplyContainer,
-  ButtonsContainer,
-  FilterButton,
-  FilterSubcontainer,
-  FiltersContainer,
-  FiltersSubtitle,
   FiltersTitle,
-  GenresSubcontainer,
-  Select,
-  Sort,
   ArrowButton
 } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import SearchBar from '../SearchBar';
+import SearchBar from '../../components/SearchBarComponent';
 import toast from 'react-hot-toast';
+import FiltersComponent from '../../components/FiltersComponent';
+import { motion } from 'framer-motion';
 
 interface FiltersProps {
   onFilterChange: (filters: { genres: string[], sortBy: string, order: string, movieName: string, staffName: string }) => void;
@@ -50,16 +43,8 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
     setSelectedGenres(newSelectedGenres);
   };
 
-  const handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(event.target.value);
-  };
-
-  const handleOrderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setOrder(event.target.value);
-  };
-
   const handleApplyFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
+    event.preventDefault();
     const filters = {
       genres: selectedGenres,
       sortBy,
@@ -71,7 +56,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   };
 
   const handleResetFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
+    event.preventDefault();
     setSelectedGenres([]);
     setSortBy('vote_count');
     setOrder('desc');
@@ -82,6 +67,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
 
   const toggleFilterMenu = () => {
     setIsFilterMenuVisible(prevState => !prevState);
+    setIsOpen(isOpen => !isOpen);
   };
 
   const handleMovieSearchChange = (value: string) => {
@@ -91,6 +77,13 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   const handleStaffSearchChange = (value: string) => {
     setStaffName(value);
   };
+
+  const variants = {
+    open: { opacity: 1, x: 0 },
+    closed: { opacity: 0, x: "-100%" },
+  }
+
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
@@ -106,51 +99,26 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
         placeholder="Search movie..."
       />
       <ApplyContainer>
-        <ApplyButton onClick={handleApplyFilters}>Apply Filters</ApplyButton>
+        <ApplyButton onClick={handleApplyFilters}>Search</ApplyButton>
         <ApplyButton onClick={handleResetFilters}>Reset Filters</ApplyButton>
       </ApplyContainer>
-      <FiltersContainer isVisible={isFilterMenuVisible}>
-        <Sort>
-          <FilterSubcontainer>
-            <FiltersSubtitle>Sort By</FiltersSubtitle>
-            <Select value={sortBy} onChange={handleSortByChange}>
-              <option value="vote_average">Rating</option>
-              <option value="vote_count">Number of votes</option>
-              <option value="release_date">Release Date</option>
-              <option value="runtime">Runtime</option>
-              <option value="popularity">Popularity</option>
-              <option value="title">Title</option>
-            </Select>
-          </FilterSubcontainer>
-          <FilterSubcontainer>
-            <FiltersSubtitle>Order</FiltersSubtitle>
-            <Select value={order} onChange={handleOrderChange}>
-              <option value="desc">Descending</option>
-              <option value="asc">Ascending</option>
-            </Select>
-          </FilterSubcontainer>
-        </Sort>
-        <GenresSubcontainer>
-          <FiltersSubtitle>Genres</FiltersSubtitle>
-          <ButtonsContainer>
-            {genres.map(genre => (
-              <FilterButton
-                key={genre}
-                onClick={() => handleGenreClick(genre)}
-                active={selectedGenres.includes(genre)}
-              >
-                {genre}
-              </FilterButton>
-            ))}
-          </ButtonsContainer>
-        </GenresSubcontainer>
-        <FiltersSubtitle>Search by actor:</FiltersSubtitle>
-        <SearchBar
-          value={staffName}
-          onChange={handleStaffSearchChange}
-          placeholder="Actor name..."
-        />
-      </FiltersContainer>
+      <motion.nav
+        animate={isOpen ? "open" : "closed"}
+        variants={variants}
+        transition={{duration:0.5, type:"spring"}}
+      >
+      <FiltersComponent sortBy={sortBy}
+        setSortBy={setSortBy}
+        order={order}
+        setOrder={setOrder}
+        genres={genres}
+        selectedGenres={selectedGenres}
+        handleGenreClick={handleGenreClick}
+        staffName={staffName}
+        handleStaffSearchChange={handleStaffSearchChange}
+        isvisible={isFilterMenuVisible}
+      />
+      </motion.nav>
     </>
   );
 }

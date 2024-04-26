@@ -4,7 +4,7 @@ export const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   justify-content: center;
   align-items: center;
 `;
@@ -18,7 +18,7 @@ export const RegisterSubtitle = styled.h2`
 `;
 export const RegisterForm = styled.form`
   padding: 1rem;
-  width: 30%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,5 +92,3 @@ export const RegisterButton = styled.button`
       box-shadow: 2px 2px 2px 1px #656565;
   }
 `;
-
-

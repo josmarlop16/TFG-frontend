@@ -6,19 +6,19 @@ export const LandingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 90%;
-  background-color: #0b1623;
+  height: 80vh;
+  background-color: #101415;
 `;
 export const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 80vh;
   align-items: center;
   justify-content: center;
   gap: 2rem;
 `;
 export const LandingTitle = styled.h1`
-  color: #ffffff;
+  color: #fafafa;
   font-size: 5rem;
   font-weight: 300;
   text-align: center;

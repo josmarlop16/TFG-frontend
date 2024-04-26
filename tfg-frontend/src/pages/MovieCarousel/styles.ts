@@ -1,22 +1,27 @@
 import styled from 'styled-components';
+import BlobBackground from '../../assets/figura1.jpg';
 
 export const CarouselContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 90vh;
+  height: 60vh;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  background-color: #101415;
 `;
 export const MovieContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 90%;
-  align-items: flex-start;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
   cursor: pointer;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #222;
+  /* background-image: url(${BlobBackground});
+  background-size: cover; */
 `;
 export const PosterContainer = styled.div`
   display: flex;
@@ -27,18 +32,19 @@ export const Image = styled.img`
   height: auto;
   width: auto;
   max-width: 25%;
+  border-radius: 0.6rem;
 `;
 export const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 70%;
 `;
 export const MovieTitle = styled.h1`
   font-size: 2.5rem;
-  color: #ffffff;
+  color: #fafafa;
 `;
 export const MovieText = styled.p`
   font-size: 1rem;
-  color: #ffffff;
+  color: #fafafa;
   max-width: 100%;
 `;

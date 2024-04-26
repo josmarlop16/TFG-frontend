@@ -8,14 +8,14 @@ export const Details = styled.div`
   width: 100%;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  color: #fafafa;
   transition: opacity 0.3s ease;
 `;
 export const Card = styled.div`
   position: relative;
   width: 19%;
   height: 380px;
-  background: #0b1620;
+  background: #101415;
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
@@ -43,7 +43,7 @@ export const Poster = styled.div`
   }
 `;
 export const Title = styled.h1`
-  color: #ffffff;
+  color: #fafafa;
   text-align: center;
   font-size: 1.7rem;
   padding: 5%;
@@ -58,7 +58,7 @@ export const Subtitle = styled.h2`
   text-overflow: ellipsis;
 `;
 export const NoPosterText = styled.p`
-  color: #ffffff;
+  color: #fafafa;
   text-align: center;
   font-size: 2rem;
   margin-top: 7rem;

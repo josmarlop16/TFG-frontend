@@ -4,21 +4,15 @@ export const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #0b1623;
+  align-items: center;
+  height: auto;
+  gap: 2rem;
+  background-color: #101415;
 `;
 export const UserCard = styled.div`
   display: flex;
   flex-direction: row;
-  height: 30%;
-  width: 70%;
-  justify-content: center;
-  align-self: center;
-  gap: 0.5rem;
-  border-radius: 1rem;
-`;
-export const UserAvatar = styled.img`
-  height: 400px;
-  border-radius: 1rem;
+  justify-content: space-evenly;
 `;
 export const UserData = styled.div`
   display: flex;
@@ -28,14 +22,6 @@ export const UserData = styled.div`
   padding: 1rem;
   height: fit-content;
   width: 100%;
-`;
-export const Username = styled.h1`
-  font-size: 2rem;
-  font-weight: 500;
-`;
-export const Useremail = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 500;
 `;
 export const EditForm = styled.form`
   display: flex;
@@ -85,12 +71,7 @@ export const UsernameContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-`;
+
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -106,7 +87,6 @@ export const UserTitle = styled.h1`
   font-size: 2rem;
   color: #ffffff;
   text-align: center;
-  background-color: #0b1623;
   margin-top: 0.5rem;
 `;
 export const List = styled.div`
@@ -121,8 +101,6 @@ export const List = styled.div`
   padding: 2rem;
   overflow-y: auto;
   scroll-behavior: smooth;
-  background-color: #0b1623;
 `;
 export const MoviesContainer = styled.div`
-  background-color: #0b1623;
 `;

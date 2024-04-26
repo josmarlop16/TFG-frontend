@@ -8,7 +8,7 @@ export const Data = styled.div`
 export const MovieTitleContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 90%;
+  width: 100%;
   color: #ffffff;
   justify-content: space-between;
   gap: 0.5rem;
@@ -21,4 +21,8 @@ export const MovieText = styled.p`
   font-size: 1rem;
   color: #ffffff;
   max-width: 100%;
+`;
+export const TextContainer = styled.div`
+  width: 90%;
+  margin-left: 3rem;
 `;

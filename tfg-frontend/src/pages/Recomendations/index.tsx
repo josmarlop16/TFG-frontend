@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieCarousel from '../MovieCarousel';
 import { Movie } from '../../types/movie';
-import { UserTitle } from '../User/styles';
-import Lottie from 'react-lottie';
 import LoadingAnimation from "../../lotties/loading-animation.json";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
-import { RefreshButton, TitleContainer, RecommendationContainer } from './styles';
+import { RefreshButton, TitleContainer, RecommendationContainer, UserTitle } from './styles';
 import toast from 'react-hot-toast';
+import LottieComponent from '../../components/LottieComponent';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const Recommendations = () => {
   const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
@@ -42,6 +42,7 @@ const Recommendations = () => {
   };
 
   return (
+    <AnimatedPage>
     <RecommendationContainer>
       <TitleContainer>
         <UserTitle>Today, we recommend...</UserTitle>
@@ -50,22 +51,12 @@ const Recommendations = () => {
         </RefreshButton>
       </TitleContainer>
       {loading ? (
-        <Lottie
-          options={{
-            loop: true,
-            autoplay: true,
-            animationData: LoadingAnimation,
-            rendererSettings: {
-              preserveAspectRatio: "xMidYMid slice"
-            }
-          }}
-          height={200}
-          width={200}
-        />
+        <LottieComponent animation={LoadingAnimation} />
       ) : (
         <MovieCarousel movies={recommendedMovies} />
       )}
     </RecommendationContainer>
+    </AnimatedPage>
   );
 };
 

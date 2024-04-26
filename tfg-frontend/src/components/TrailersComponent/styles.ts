@@ -6,12 +6,12 @@ export const MediaCarrousel = styled.div`
   height: fit-content;
   justify-content: center;
   align-items: center;
+  background-color: #101415;
 `;
 export const Title = styled.h1`
   font-size: 2rem;
   color: #ffffff;
   text-align: center;
-  background-color: #0b1623;
   margin-top: 2rem;
 `;
 export const Thumb = styled.div`

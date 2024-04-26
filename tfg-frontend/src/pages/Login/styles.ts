@@ -4,7 +4,7 @@ export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   justify-content: center;
   align-items: center;
 `;
@@ -24,7 +24,7 @@ export const LoginSubtitle = styled.h2`
 `;
 export const LoginForm = styled.form`
   padding: 1rem;
-  width: 30%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,6 +89,6 @@ export const LoginButton = styled.button`
   color: #000000;
   transition: all 0.5s ease;
   &:hover {
-      box-shadow: 2px 2px 2px 1px #656565;
+    box-shadow: 2px 2px 2px 1px #656565;
   }
 `;

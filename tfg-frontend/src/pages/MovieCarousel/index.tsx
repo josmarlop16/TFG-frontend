@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { MovieContainer, Image, DataContainer, MovieTitle, MovieText, CarouselContainer } from './styles';
 import { Movie } from '../../types/movie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import { NoPosterText } from '../MovieCard/styles';
-import ProviderComponent from '../../components/ProvidersComponent';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/css/sea-green';
 import { getFaceIcon } from '../../utils/getFaceIcon';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 interface MovieCarouselProps {
   movies: Movie[];
@@ -23,11 +22,12 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({ movies }) => {
   };
 
   return (
+    <AnimatedPage>
     <CarouselContainer>
-      <Splide options={{ rewind: true, width:"95%", height:"50vh" }} aria-label="Movie Carousel">
+      <Splide options={{ rewind: true, width:"90%", height:"50vh", }} aria-label="Movie Carousel" id='splide-component'>
         {movies.map((movie: Movie) => (
-          <SplideSlide key={movie._id}>
-            <MovieContainer onClick={() => handleMovieClick(movie._id)}>
+          <SplideSlide key={movie._id} id='slide-component' style={{display: "flex", justifyContent: "center", height:"50%"}} >
+            <MovieContainer onClick={() => handleMovieClick(movie._id)} id='movie-container'>
               {movie.poster_path ? (
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -44,13 +44,13 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({ movies }) => {
                 </MovieText>
                 <MovieText>{movie.genres ? movie.genres.join(', ') : ''}</MovieText>
                 <MovieText>{movie.overview}</MovieText>
-                <ProviderComponent providers={movie.providers} />
               </DataContainer>
             </MovieContainer>
           </SplideSlide>
         ))}
       </Splide>
     </CarouselContainer>
+    </AnimatedPage>
   );
 }
 

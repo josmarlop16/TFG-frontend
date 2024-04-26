@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MovieDetailData } from '../../types/movie';
-import { Image, MovieContainer, MovieData, MovieSubitle, PosterContainer } from './styles';
-import { List } from '../MoviesList/styles';
+import { Image, MovieContainer, MovieData, MovieSubitle, PosterContainer, RelatedContainer } from './styles';
+import { List } from '../MoviesSearch/styles';
 import { NoPosterText } from '../MovieCard/styles';
 import MovieCard from '../MovieCard';
 import TrailerComponent from '../../components/TrailersComponent';
-import LoadingAnimationComponent from '../../components/LoadingAnimationComponent';
-import EmptyAnimationComponent from '../../components/EmptyAnimationComponent';
+import LoadingAnimationComponent from '../../components/Animations/LoadingAnimationComponent';
+import EmptyAnimationComponent from '../../components/Animations/EmptyAnimationComponent';
 import ListSelectorComponent from '../../components/ListSelectorComponent';
 import { checkPreferences, fetchUserLists, loadMovieDetails } from '../../utils/handleMovieData';
 import MovieDataComponent from '../../components/MovieDataComponent';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const MovieDetail: React.FC = () => {
   const { movieId } = useParams<{ movieId: string }>();
@@ -53,6 +54,7 @@ const MovieDetail: React.FC = () => {
   const { film, relatedMovies, media, providers } = movieData;
 
   return (
+    <AnimatedPage>
     <MovieContainer>
       <MovieData>
         <PosterContainer>
@@ -75,17 +77,20 @@ const MovieDetail: React.FC = () => {
       ) : (
         <EmptyAnimationComponent text="No videos available at the moment" />
       )}
-      <MovieSubitle>Related</MovieSubitle>
       {media.trailers && media.trailers.length > 0 ? (
-        <List>
-          {relatedMovies.map((relatedMovie) => (
-            <MovieCard key={relatedMovie._id} movie={relatedMovie} isLoading={isLoading} />
-          ))}
-        </List>
+        <RelatedContainer>
+          <MovieSubitle>Related</MovieSubitle>
+          <List>
+            {relatedMovies.map((relatedMovie) => (
+              <MovieCard key={relatedMovie._id} movie={relatedMovie} isLoading={isLoading} />
+            ))}
+          </List>
+        </RelatedContainer>
       ) : (
         <EmptyAnimationComponent text="No related movies at the moment" />
       )}
     </MovieContainer>
+    </AnimatedPage>
   );
 };
 

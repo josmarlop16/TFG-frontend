@@ -10,6 +10,9 @@ import {
 } from './styles';
 import { useUser } from '../../hooks/userContext';
 import toast from 'react-hot-toast';
+import LogoutAnimation from "../../lotties/logout-animation.json";
+import LottieComponent from '../../components/LottieComponent';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -18,26 +21,20 @@ const Logout = () => {
   const handleLogout = async (event: any) => {
     event.preventDefault();
     try {
-      // Obtener el correo electrónico y el token de autenticación del usuario del almacenamiento local
       const authToken = sessionStorage.getItem('token') || "";
       const email = sessionStorage.getItem('email') || "";
-
-      // Si el correo electrónico o el token de autenticación están vacíos, no realizar el logout
       if (!email || !authToken) {
         return;
       }
-
       const response = await axios.post('http://localhost:4000/logout', {
         email,
         authToken
       });
-
       if (response.status === 200) {
         clearUser()
       } else {
         toast.error('Loggin out error!');
       }
-      // Redirigir al usuario a la página de inicio
       navigate('/');
     } catch (error:any) {
       toast.error('Loggin out error!', error);
@@ -45,13 +42,16 @@ const Logout = () => {
   };
 
   return (
-    <LogoutContainer>
-      <LogoutForm onSubmit={handleLogout}>
-        <LogoutTitle>Logout</LogoutTitle>
-        <LogoutSubtitle>Are you sure you want to exit?</LogoutSubtitle>
-        <LogoutButton type="submit">Logout</LogoutButton>
-      </LogoutForm>
-    </LogoutContainer>
+    <AnimatedPage>
+      <LogoutContainer>
+        <LogoutForm onSubmit={handleLogout}>
+          <LottieComponent animation={LogoutAnimation} />
+          <LogoutTitle>Logout</LogoutTitle>
+          <LogoutSubtitle>Are you sure you want to exit?</LogoutSubtitle>
+          <LogoutButton type="submit">Logout</LogoutButton>
+        </LogoutForm>
+      </LogoutContainer>
+    </AnimatedPage>
   );
 };
 

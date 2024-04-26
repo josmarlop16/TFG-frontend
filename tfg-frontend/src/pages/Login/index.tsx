@@ -10,10 +10,11 @@ import {
   LoginButton,
   InputGroup,
   InputContainer,
-} from './styles.ts';
+} from './styles';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../hooks/userContext.js';
 import toast from 'react-hot-toast';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -40,6 +41,9 @@ const Login = () => {
   };
 
   return (
+    <AnimatedPage>
+
+    
     <LoginContainer>
       <LoginForm onSubmit={handleLogin}>
         <LoginTitle>Log in</LoginTitle>
@@ -48,7 +52,7 @@ const Login = () => {
           <InputGroup>
             <LoginInput
               required
-              type='text'
+              type='email'
               id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -70,6 +74,7 @@ const Login = () => {
         </InputContainer>
       </LoginForm>
     </LoginContainer>
+    </AnimatedPage>
   );
 };
 

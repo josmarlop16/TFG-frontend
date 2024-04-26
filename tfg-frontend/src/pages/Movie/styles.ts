@@ -4,7 +4,6 @@ export const MovieContainer = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-  background-color: #0b1623;
 `;
 export const MovieData = styled.div`
   display: flex;
@@ -41,7 +40,6 @@ export const MovieSubitle = styled.h2`
   font-size: 2rem;
   color: #ffffff;
   text-align: center;
-  background-color: #0b1623;
   margin-top: 2rem;
 `;
 export const MovieText = styled.p`
@@ -66,7 +64,6 @@ export const MediaSection = styled.div`
   width: 90%;
 `;
 export const MovieMedia = styled.div`
-  background-color: #0b1623;
 `;
 export const MediaCarrousel = styled.div`
   display: flex;
@@ -82,7 +79,6 @@ export const Multimedia = styled.div`
   display: flex;
   flex-direction: column;
   height: 80vh;
-  background-color: #0b1623;
   justify-content: center;
   align-items: center;
   margin-bottom: 5rem;
@@ -112,4 +108,7 @@ export const PosterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+`;
+export const RelatedContainer = styled.div`
+  background-color: #101415;
 `;

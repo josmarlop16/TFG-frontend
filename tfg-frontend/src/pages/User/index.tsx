@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { UserAvatar, UserContainer, UserCard, UserData, Username, Useremail, EditForm, EditInput, EditButton, ProfileContainer, UsernameContainer, ButtonsContainer, Button, UserTitle, List, MoviesContainer,
-} from './styles';
+import { UserContainer, UserCard, EditForm, EditInput, EditButton, ButtonsContainer, UserTitle, List, MoviesContainer } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRotateLeft, faUserPen } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import MovieCard from '../MovieCard';
 import { Movie } from '../../types/movie';
 import Recommendations from '../Recomendations';
-import UserLists from './UserLists';
+import UserLists from '../../components/UserListsComponent';
+import ProfileComponent from '../../components/ProfileComponent';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState<any>(null);
@@ -58,54 +59,55 @@ const UserProfile = () => {
     }
   };
 
+  const activateEditingMode = () => {
+    setEditing(true);
+  };
+
   return (
+    <AnimatedPage>
     <UserContainer>
       <UserCard>
-        <UserAvatar src={avatar} />
-        <UserData>
-          {!editing && userData && (
-            <ProfileContainer>
-              <UsernameContainer>
-                <Username>@{username}</Username>
-                <Useremail>{userEmail}</Useremail>
-              </UsernameContainer>
-              <Button>
-                <FontAwesomeIcon size="2x" icon={faUserPen} onClick={() => setEditing(true)} />
-              </Button>
-            </ProfileContainer>
-          )}
-          {editing && (
-            <EditForm onSubmit={handleEdit}>
-              <EditInput
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <EditInput
-                type="email"
-                placeholder="Email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-              />
-              <EditInput
-                type="text"
-                placeholder="Avatar URL"
-                value={avatar}
-                onChange={(e) => setAvatar(e.target.value)}
-              />
-              <ButtonsContainer>
-                <EditButton type="submit">Save</EditButton>
-                <EditButton onClick={() => setEditing(false)}>
-                  <FontAwesomeIcon icon={faArrowRotateLeft} />
-                </EditButton>
-              </ButtonsContainer>
-            </EditForm>
-          )}
-        </UserData>
+        {!editing && userData && (
+          <>
+            <ProfileComponent
+              avatar={avatar}
+              username={username}
+              userEmail={userEmail}
+              onEdit={activateEditingMode}
+            />
+            <UserLists userData={userData} />
+          </>
+        )}
+        {editing && (
+          <EditForm onSubmit={handleEdit}>
+            <EditInput
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <EditInput
+              type="email"
+              placeholder="Email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+            <EditInput
+              type="text"
+              placeholder="Avatar URL"
+              value={avatar}
+              onChange={(e) => setAvatar(e.target.value)}
+            />
+            <ButtonsContainer>
+              <EditButton type="submit">Save</EditButton>
+              <EditButton onClick={() => setEditing(false)}>
+                <FontAwesomeIcon icon={faArrowRotateLeft} />
+              </EditButton>
+            </ButtonsContainer>
+          </EditForm>
+        )}
       </UserCard>
       <Recommendations/>
-      <UserLists userData={userData} />
       {userData && userData.preferences && userData.preferences.movies && (
         <MoviesContainer>
           <UserTitle>Favourite Movies</UserTitle>
@@ -114,10 +116,10 @@ const UserProfile = () => {
               <MovieCard key={movie._id} movie={movie}/>
             ))}
           </List>
-          
         </MoviesContainer>
       )}
     </UserContainer>
+    </AnimatedPage>
   );
 };
 

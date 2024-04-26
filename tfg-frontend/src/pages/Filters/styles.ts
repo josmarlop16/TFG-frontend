@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 interface SortProps {
-  isVisible: boolean;
+  isvisible: boolean;
 }
 export const FiltersContainer = styled.div<SortProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  max-height: ${({ isVisible }) => (isVisible ? '1000px' : '0')};
+  max-height: ${({ isvisible }) => (isvisible ? '1000px' : '0')};
   overflow: hidden;
   transition: max-height 1s ease;
 `;

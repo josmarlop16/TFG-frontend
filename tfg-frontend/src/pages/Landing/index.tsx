@@ -1,9 +1,10 @@
 import React from 'react';
-import { LandingContainer, LandingTitle, ButtonsContainer, StyledLink, StyledLink2, UserContainer, AnimationContainer } from './styles.ts';
-import Carousel from '../Carousel/index.tsx';
-import Lottie from 'react-lottie';
-import landingAnimation from "../../lotties/landing-animation.json";
-import Recommendations from '../Recomendations/index.tsx';
+import { LandingContainer, LandingTitle, ButtonsContainer, StyledLink, StyledLink2, UserContainer, AnimationContainer } from './styles';
+import Carousel from '../Carousel';
+import Recommendations from '../Recomendations';
+import LottieComponent from '../../components/LottieComponent';
+import LandingAnimation from '../../lotties/landing-animation.json';
+import { AnimatedPage } from '../../components/AnimatedPage';
 
 const Landing = () => {
   const userId = sessionStorage.getItem('userId');
@@ -15,22 +16,14 @@ const Landing = () => {
     "Uncover a new movie recommendation system based on your tastes and preferences!"
   ];
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: landingAnimation,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
-
   return (
+    <AnimatedPage>
     <LandingContainer>
       {userId ? 
         (<Recommendations />) : (
         <UserContainer>
           <AnimationContainer>
-            <Lottie options={defaultOptions} height={200} width={200}/>
+            <LottieComponent animation={LandingAnimation} height={200} width={200}/>
             <LandingTitle>Welcome to Movie Eater</LandingTitle>
             <ButtonsContainer>
               <StyledLink2 to="/login">Log in</StyledLink2>
@@ -41,6 +34,7 @@ const Landing = () => {
         </UserContainer>
       )}
     </LandingContainer>
+    </AnimatedPage>
   );
 }
 
