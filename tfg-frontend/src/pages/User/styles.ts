@@ -13,6 +13,7 @@ export const UserCard = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  height: 80vh;
 `;
 export const Container = styled.div`
   display: flex;
@@ -90,11 +91,11 @@ export const ButtonsContainer = styled.div`
   gap: 0.5rem;
   justify-content: center;
 `;
-export const Button = styled.button`
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-`;
+// export const Button = styled.button`
+//   background-color: transparent;
+//   cursor: pointer;
+//   border: none;
+// `;
 export const UserTitle = styled.h1`
   font-size: 2rem;
   color: #fafafa;
@@ -129,4 +130,39 @@ export const MovieContainer = styled.div`
     color: red;
     transition: color 0.3s ease-in-out;
   }
+`;
+export const PopupContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  background-color: #fafafa;
+  width: 15%;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+`;
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+`;
+export const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  .heart-icon,
+  .trash-icon {
+    transition: color 0.3s ease-in-out;
+  }
+  .heart-icon:hover,
+  .trash-icon:hover {
+    transition: color 0.3s ease-in-out;
+    color: red;
+  }
+`;
+export const RedText = styled.p`
+  color: red;
 `;

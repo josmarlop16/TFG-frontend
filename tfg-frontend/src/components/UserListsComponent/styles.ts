@@ -4,11 +4,12 @@ export const UserListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
 `;
 export const MoviesList = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 `;
 export const UserMovieTitle = styled.p`
@@ -18,16 +19,19 @@ export const UserMovieTitle = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-align: center;
 `;
-export const UserListTitle = styled.p`
+export const UserListTitle = styled.h1`
   font-size: 1.5rem;
+  margin-top: 1rem;
 `;
 export const UserMovieImage = styled.img`
   width: auto;
   height: 150px;
-  border-radius: 8px;
+  border-radius: 1rem;
 `;
 export const UserMovieCard = styled.div`
+  width: 100px;
   .movie-title {
     opacity: 0;
     transition: opacity 0.3s ease;
