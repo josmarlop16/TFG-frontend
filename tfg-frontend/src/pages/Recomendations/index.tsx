@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MovieCarousel from '../MovieCarousel';
 import { Movie } from '../../types/movie';
@@ -15,7 +15,7 @@ const Recommendations = () => {
   const userId = sessionStorage.getItem('userId');
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchRecommendedMovies = async () => {
+  const fetchRecommendedMovies = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.post('http://localhost:4000/recommended-movies', { 
@@ -27,7 +27,7 @@ const Recommendations = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -35,7 +35,7 @@ const Recommendations = () => {
     };
 
     fetchMovies();
-  }, [userId]); 
+  }, [fetchRecommendedMovies]);
 
   const handleReload = () => {
     fetchRecommendedMovies();
@@ -51,7 +51,7 @@ const Recommendations = () => {
         </RefreshButton>
       </TitleContainer>
       {loading ? (
-        <LottieComponent animation={LoadingAnimation} />
+        <LottieComponent animation={LoadingAnimation} height={100} width={100}/>
       ) : (
         <MovieCarousel movies={recommendedMovies} />
       )}

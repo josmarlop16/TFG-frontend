@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MovieCard from '../MovieCard';
+import MovieCard from '../../components/MovieCardComponent';
 import Filters from '../Filters';
 import { Movie } from '../../types/movie';
 import { List, ListContainer, Horizontal } from './styles';

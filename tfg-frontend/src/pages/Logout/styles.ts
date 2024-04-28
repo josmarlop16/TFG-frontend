@@ -11,6 +11,7 @@ export const LogoutContainer = styled.div`
 export const LogoutForm = styled.form`
   padding: 1rem;
   width: 20%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;

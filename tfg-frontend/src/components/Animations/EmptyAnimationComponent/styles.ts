@@ -6,10 +6,10 @@ export const EmptyAnimationContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 30vh;
+  height: 40vh;
 `;
 export const Text = styled.p`
   font-size: 1rem;
-  color: #ffffff;
+  color: #fafafa;
   max-width: 100%;
 `;

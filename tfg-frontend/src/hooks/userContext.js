@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
     email: sessionStorage.getItem('email') || '',
     userId: sessionStorage.getItem('userId') || '',
     userLists: JSON.parse(sessionStorage.getItem('userLists') || '[]'),
-    preferences: JSON.parse(sessionStorage.getItem('preferences') || '[]'),
+    preferences: JSON.parse(sessionStorage.getItem('preferences.movies') || '[]'),
   });
 
   const updateUser = (userData) => {

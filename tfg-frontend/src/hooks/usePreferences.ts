@@ -33,11 +33,11 @@ export const usePreferences = () => {
       });
 
       if (response.data.message === "La película ya está en las preferencias del usuario.") {
-        toast.error("La película ya está en tus preferencias.");
+        toast.error("Movie already on your preferences.");
       } else {
         await updatePreferencesInSessionStorage();
         setIsInPreferences(true);
-        toast.success("Película añadida a tus preferencias!");
+        toast.success("Movie added to your preferences!");
       }
     } catch (error) {
       console.error('Error adding to preferences:', error);
@@ -52,11 +52,11 @@ export const usePreferences = () => {
       });
 
       if (response.data.message === "La película no está en las preferencias del usuario.") {
-        toast.error("La película no está en tus preferencias.");
+        toast.error("Movie is not on your preferences.");
       } else {
         await updatePreferencesInSessionStorage();
         setIsInPreferences(false);
-        toast.success("Película eliminada de tus preferencias!");
+        toast.success("Movie deleted from your preferences!");
       }
     } catch (error) {
       console.error('Error removing from preferences:', error);

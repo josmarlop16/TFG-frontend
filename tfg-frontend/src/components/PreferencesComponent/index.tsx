@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -12,11 +12,7 @@ interface PreferencesComponentProps {
 }
 
 const PreferencesComponent: React.FC<PreferencesComponentProps> = ({ isLoggedIn, movieId }) => {
-  const {
-    isInPreferences,
-    handleAddToPreferences,
-    handleRemoveFromPreferences,
-  } = usePreferences(); 
+  const { isInPreferences, handleAddToPreferences, handleRemoveFromPreferences } = usePreferences();
 
   const handleAddClick = () => {
     if(movieId === undefined) {

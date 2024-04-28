@@ -14,11 +14,18 @@ export const UserCard = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
 `;
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 70%;
+  width: 80vw;
+`;
 export const UserData = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  background-color: #ffffff;
+  background-color: #fafafa;
   padding: 1rem;
   height: fit-content;
   width: 100%;
@@ -27,6 +34,11 @@ export const EditForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background-color: #fafafa;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  border-radius: 1rem;
 `;
 export const EditInput = styled.input`
   all: unset;
@@ -50,7 +62,7 @@ export const EditInput = styled.input`
 `;
 export const EditButton = styled.button`
   display: flex;
-  width: 20%;
+  width: 100%;
   height: 40px;
   justify-content: center;
   align-items: center;
@@ -75,7 +87,7 @@ export const UsernameContainer = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 0.5rem;
   justify-content: center;
 `;
 export const Button = styled.button`
@@ -85,22 +97,36 @@ export const Button = styled.button`
 `;
 export const UserTitle = styled.h1`
   font-size: 2rem;
-  color: #ffffff;
+  color: #fafafa;
   text-align: center;
   margin-top: 0.5rem;
 `;
 export const List = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;  
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
   width: 100%;
   height: auto;
-  padding: 2rem;
+  min-height: 40%;
   overflow-y: auto;
   scroll-behavior: smooth;
+  padding: 2rem;
 `;
 export const MoviesContainer = styled.div`
+`;
+export const MovieContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #222;
+  padding-top: 0.5rem;
+  color: #fafafa;
+  border-radius: 1rem;
+  cursor: pointer;
+  :hover.trash-icon {
+    color: red;
+    transition: color 0.3s ease-in-out;
+  }
 `;

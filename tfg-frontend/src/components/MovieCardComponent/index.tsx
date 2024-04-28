@@ -4,7 +4,7 @@ import { Card, Poster, Details, Title, Subtitle, Image, NoPosterText, Rating } f
 import { Movie } from '../../types/movie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getFaceIcon } from '../../utils/getFaceIcon';
-import LoadingAnimationComponent from '../../components/Animations/LoadingAnimationComponent';
+import LoadingAnimationComponent from '../Animations/LoadingAnimationComponent';
 
 interface MovieCardProps {
   movie: Movie;
@@ -44,9 +44,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
             <Subtitle>{genres ? genres.join(', ') : ''}</Subtitle>
             <Rating>
               <FontAwesomeIcon icon={getFaceIcon(vote_average)} style={{marginRight: '0.1rem'}}/>
-              <span>
-                {roundedRating}/10
-              </span>
+              {roundedRating}/10
             </Rating>
           </Details>
         </>

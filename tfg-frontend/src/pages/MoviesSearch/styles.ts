@@ -9,15 +9,14 @@ export const ListContainer = styled.div`
   width: 100%;
 `;
 export const List = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;  
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
   width: 100%;
   height: auto;
-  min-height: 80vh;
+  min-height: 80%;
   overflow-y: auto;
   scroll-behavior: smooth;
   padding: 2rem;

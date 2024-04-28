@@ -5,6 +5,7 @@ import Movie from '../Movie';
 import { AppContainer } from './styles';
 import Landing from '../Landing';
 import Login from '../Login';
+import { Error } from '../Error';
 import MoviesList from '../MoviesSearch';
 import Logout from '../Logout';
 import User from '../User';
@@ -16,16 +17,17 @@ import LoadingAnimationComponent from '../../components/Animations/LoadingAnimat
 import { About } from '../About';
 import { Developer } from '../Developer';
 import { AnimatePresence } from 'framer-motion';
+
 const App = () => {
   return (
-    <Suspense fallback={<LoadingAnimationComponent/>}>
-    <UserProvider>
-      <Toaster position="top-center" reverseOrder={false}/>
-        <Router>
-          <Main />
-        </Router>
-      </UserProvider>
-    </Suspense>
+      <Suspense fallback={<LoadingAnimationComponent/>}>
+      <UserProvider>
+        <Toaster position="top-center" reverseOrder={false}/>
+          <Router>
+            <Main />
+          </Router>
+        </UserProvider>
+      </Suspense>
   );
 };
 
@@ -46,6 +48,7 @@ const Main = () => {
           <Route path="/logout" element={<Logout />} />
           <Route path="/movies" element={<MoviesList />} />
           <Route path="/movie/:movieId" element={<Movie />} />
+          <Route path="*" element={<Error />} />
         </Routes>
         </AnimatePresence>
         <Footer />

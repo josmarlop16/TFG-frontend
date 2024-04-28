@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const AboutPage = styled.div`
   background-color: #101415;
   width: 100%;
-  height: 150vh;
+  height: 100%;
 `;
 
 export const AboutContainer = styled.div`

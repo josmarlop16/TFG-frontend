@@ -10,7 +10,7 @@ interface EmptyAnimationComponentProps {
 const EmptyAnimationComponent: React.FC<EmptyAnimationComponentProps> = ({ text }) => {
   return (
     <EmptyAnimationContainer>
-      <LottieComponent animation={EmptyAnimation} />
+      <LottieComponent animation={EmptyAnimation} height={200} width={200}/>
       <Text>{text}</Text>
     </EmptyAnimationContainer>
   )

@@ -13,8 +13,8 @@ export const Details = styled.div`
 `;
 export const Card = styled.div`
   position: relative;
-  width: 19%;
-  height: 380px;
+  width: 100%;
+  height: 100%;
   background: #101415;
   border-radius: 1rem;
   overflow: hidden;
@@ -39,7 +39,7 @@ export const Poster = styled.div`
   img {
       width: 100%;
       height: auto;
-      transition: transform 0.3s ease;
+      transition: transform 0.5s ease;
   }
 `;
 export const Title = styled.h1`
@@ -66,7 +66,6 @@ export const NoPosterText = styled.p`
 export const Rating = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
   align-items: center;
   justify-content: center;
 `;

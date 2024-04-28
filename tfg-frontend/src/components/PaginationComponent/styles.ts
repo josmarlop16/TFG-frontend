@@ -6,9 +6,9 @@ export const PaginationContainer = styled.div`
   justify-self: center;
   justify-content: center;
   align-items: center;
-  width: auto;
+  width: 30%;
   margin: 1.5rem;
-  gap: 2rem;
+  /* gap: 2rem; */
   color: #000000;
   background-color: #bae8e8;
   font-family: "Montserrat", sans-serif;

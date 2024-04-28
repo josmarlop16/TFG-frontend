@@ -7,7 +7,7 @@ import {
   ArrowButton
 } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../../components/SearchBarComponent';
 import toast from 'react-hot-toast';
 import FiltersComponent from '../../components/FiltersComponent';
@@ -100,7 +100,9 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
       />
       <ApplyContainer>
         <ApplyButton onClick={handleApplyFilters}>Search</ApplyButton>
-        <ApplyButton onClick={handleResetFilters}>Reset Filters</ApplyButton>
+        <ApplyButton onClick={handleResetFilters}>
+          <FontAwesomeIcon icon={faFilterCircleXmark} />
+        </ApplyButton>
       </ApplyContainer>
       <motion.nav
         animate={isOpen ? "open" : "closed"}

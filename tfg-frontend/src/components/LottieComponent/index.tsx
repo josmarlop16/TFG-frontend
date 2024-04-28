@@ -17,11 +17,12 @@ const LottieComponent: React.FC<PreferencesComponentProps> = ({ animation, heigh
           autoplay: true,
           animationData: animation,
           rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice"
+            preserveAspectRatio: "xMidYMid slice",
           }
         }}
         height={height}
         width={width}
+        isClickToPauseDisabled={true}
       />
     </LottieContainer>
   )

@@ -18,7 +18,7 @@ export const RegisterSubtitle = styled.h2`
 `;
 export const RegisterForm = styled.form`
   padding: 1rem;
-  width: 80%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +59,7 @@ export const LoginInput = styled.input`
   }
   &:focus ~ label,
   &:valid ~ label {
-    transform: translateY(-90%) scale(0.7);
+    transform: translateY(-110%) scale(0.7);
     background-color: #fafafa;
     padding-inline: 0.3rem;
     color: #000000;
@@ -67,7 +67,7 @@ export const LoginInput = styled.input`
 `;
 export const LoginLabel = styled.label`
   position: absolute;
-  top: 0.6rem;
+  top: 1rem;
   left: 1rem;
   color: #d4d4d4;
   pointer-events: none;

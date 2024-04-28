@@ -45,7 +45,7 @@ const Logout = () => {
     <AnimatedPage>
       <LogoutContainer>
         <LogoutForm onSubmit={handleLogout}>
-          <LottieComponent animation={LogoutAnimation} />
+          <LottieComponent animation={LogoutAnimation} height={200} width={200} />
           <LogoutTitle>Logout</LogoutTitle>
           <LogoutSubtitle>Are you sure you want to exit?</LogoutSubtitle>
           <LogoutButton type="submit">Logout</LogoutButton>

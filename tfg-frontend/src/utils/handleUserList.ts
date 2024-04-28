@@ -13,7 +13,7 @@ export const handleAddToUserList = async (listName: string | null, movieId: stri
       movieId: movieId
     });
 
-    if (response.data.message === "Movie already exists in the list.") {
+    if (response.data.message === "Internal server error") {
       toast.error("Movie already exists in the selected list.");
     } else {
       toast.success("Movie added to the selected list!");

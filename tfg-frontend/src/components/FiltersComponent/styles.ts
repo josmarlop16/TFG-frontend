@@ -24,7 +24,7 @@ export const SelectorContainer = styled.div`
   margin: 0.3rem;
 `;
 export const Text = styled.h1`
-  color: #ffffff;
+  color: #fafafa;
   font-size: 1rem;
   margin: 0.3rem;
 `;
@@ -51,7 +51,7 @@ export const FilterButton = styled.button<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ active }) => (active ? '#bae8e8' : '#ffffff')};
+  background-color: ${({ active }) => (active ? '#bae8e8' : '#fafafa')};
   border-radius: 0.5rem;
   border: 2px solid;
   border-color: ${({ active }) => (active ? '#bae8e8' : '#0b1623')};
@@ -63,7 +63,7 @@ export const FilterButton = styled.button<{ active: boolean }>`
   color: #000000;
   transition: all 0.5s ease;
   &:hover {
-    background-color: #ffffff;
+    background-color: #fafafa;
   }
 `;
 export const ActorContainer = styled.div`
@@ -80,7 +80,7 @@ export const OrderContainer = styled.div`
   align-items: center;
 `;
 export const Vertical = styled.hr`
-  color: #ffffff;
+  color: #fafafa;
   width: 5rem;
   height: 1rem;
   rotate: 90deg;

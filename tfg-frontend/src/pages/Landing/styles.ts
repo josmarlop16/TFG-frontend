@@ -31,6 +31,7 @@ export const AnimationContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  height: 70%;
 `;
 export const ButtonsContainer = styled.div`
   display: flex;

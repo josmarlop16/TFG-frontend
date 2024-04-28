@@ -12,7 +12,6 @@ export const RecommendationContainer = styled.div`
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
 `;
 export const RefreshButton = styled.button`
