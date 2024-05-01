@@ -10,27 +10,27 @@ const Header = () => {
 
   return (
     <Navbar>
-      <StyledLink to="/movies" data-text="Movies">
+      <StyledLink to="/movies" data-testid="Movies" data-text="Movies">
         <FontAwesomeIcon icon={faFilm} />
       </StyledLink>
-      <StyledLink to="/" data-text="Home">
+      <StyledLink to="/" data-testid="Home" data-text="Home">
         <FontAwesomeIcon icon={faHouse} />
       </StyledLink>
       {isLoggedIn ? (
         <>
-          <StyledLink to="/user" data-text={username}>
+          <StyledLink to="/user" data-testid={username} data-text={username}>
             <FontAwesomeIcon icon={faUser} />
           </StyledLink>
-          <StyledLink to="/logout" data-text="Log out">
+          <StyledLink to="/logout" data-testid="Log out" data-text="Log out">
             <FontAwesomeIcon icon={faCircleXmark} />
           </StyledLink>
         </>
       ) : (
         <>
-          <StyledLink to="/login" data-text="Log in">
+          <StyledLink to="/login" data-testid="Log in" data-text="Log in">
             <FontAwesomeIcon icon={faArrowRightToBracket} />
           </StyledLink>
-          <StyledLink to="/register" data-text="Sign up">
+          <StyledLink to="/register" data-testid="Sign up" data-text="Sign up">
             <FontAwesomeIcon icon={faUserPlus} />
           </StyledLink>
         </>

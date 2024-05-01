@@ -56,6 +56,7 @@ const Login = () => {
               id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              data-testid="email-input"
             />
             <LoginLabel>Email</LoginLabel>
           </InputGroup>
@@ -66,6 +67,7 @@ const Login = () => {
               id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              data-testid="password-input"
             />
             <LoginLabel>Password</LoginLabel>
           </InputGroup>

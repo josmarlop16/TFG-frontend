@@ -5,7 +5,6 @@ import { Movie } from '../../types/movie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NoPosterText } from '../../components/MovieCardComponent/styles';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/splide/css/sea-green';
 import { getFaceIcon } from '../../utils/getFaceIcon';
 import { AnimatedPage } from '../../components/AnimatedPage';
 

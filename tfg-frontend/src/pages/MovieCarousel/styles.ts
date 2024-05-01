@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import BlobBackground from '../../assets/figura1.jpg';
 
 export const CarouselContainer = styled.div`
   display: flex;
@@ -20,8 +19,6 @@ export const MovieContainer = styled.div`
   padding: 1rem;
   border-radius: 1rem;
   background-color: #222;
-  /* background-image: url(${BlobBackground});
-  background-size: cover; */
 `;
 export const PosterContainer = styled.div`
   display: flex;

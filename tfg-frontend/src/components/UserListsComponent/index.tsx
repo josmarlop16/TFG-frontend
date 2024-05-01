@@ -4,19 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { UserData } from '../../types/movie';
 
-interface UserData {
-  userLists: {
-    listName: string;
-    movies: {
-      _id: string;
-      title: string;
-      poster_path: string;
-    }[];
-  }[];
+interface YourListsProps {
+  userData: UserData;
 }
 
-function YourLists({ userData }: { userData: UserData }) {
+const YourLists: React.FC<YourListsProps> = ({ userData }) => {
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [listName, setListName] = useState('');
@@ -50,7 +44,7 @@ function YourLists({ userData }: { userData: UserData }) {
           <SplideSlide key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
           width: "100%" ,backgroundColor: "#fafafa", borderRadius: "1rem", padding: "0rem 2rem 0rem 2rem"}}>
             <UserListTitle>{list.listName}</UserListTitle>
-            <Splide options={{ perPage: 4, arrows: true, autoplay: true, lazyLoad: true, width:"auto", wheel: true, margin:"0.5rem"}} style={{minWidth:"100%"}}>
+            <Splide options={{ perPage: 4, arrows: true, autoplay: true, lazyLoad: true, width:"20vw", wheel: true, margin:"0.5rem"}} style={{minWidth:"100%"}}>
               {list.movies.length > 0 ? (
                 list.movies.map((movie, movieIndex) => (
                   <SplideSlide key={movieIndex}>

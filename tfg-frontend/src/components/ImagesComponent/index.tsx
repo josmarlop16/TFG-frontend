@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { MediaCarrousel, Image, Overlay, OverlayImage } from './styles';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css/sea-green';
 
 interface ImageComponentProps {
   images: { url: string }[];

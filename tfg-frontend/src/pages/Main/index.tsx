@@ -1,41 +1,24 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Register from '../Register';
 import Movie from '../Movie';
-import { AppContainer } from './styles';
+import { MainContainer } from './styles';
 import Landing from '../Landing';
 import Login from '../Login';
-import { Error } from '../Error';
 import MoviesList from '../MoviesSearch';
 import Logout from '../Logout';
 import User from '../User';
-import { UserProvider } from '../../hooks/userContext';
-import { Toaster } from 'react-hot-toast';
 import Footer from '../Footer';
 import HeaderComponent from '../Header';
-import LoadingAnimationComponent from '../../components/Animations/LoadingAnimationComponent';
 import { About } from '../About';
 import { Developer } from '../Developer';
 import { AnimatePresence } from 'framer-motion';
-
-const App = () => {
-  return (
-      <Suspense fallback={<LoadingAnimationComponent/>}>
-      <UserProvider>
-        <Toaster position="top-center" reverseOrder={false}/>
-          <Router>
-            <Main />
-          </Router>
-        </UserProvider>
-      </Suspense>
-  );
-};
 
 const Main = () => {
   const location = useLocation();
   
   return (
-    <AppContainer>
+    <MainContainer>
       <HeaderComponent />
       <AnimatePresence mode='wait'>
         <Routes location={location} key={location.pathname}>
@@ -48,12 +31,11 @@ const Main = () => {
           <Route path="/logout" element={<Logout />} />
           <Route path="/movies" element={<MoviesList />} />
           <Route path="/movie/:movieId" element={<Movie />} />
-          <Route path="*" element={<Error />} />
         </Routes>
         </AnimatePresence>
         <Footer />
-    </AppContainer>
+    </MainContainer>
   );
 };
 
-export default App;
+export default Main;

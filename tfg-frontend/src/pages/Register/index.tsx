@@ -29,7 +29,7 @@ const Register = () => {
       updateUser(newUser);
       navigate('/');
     } catch (error: any) {
-      toast.error(error.message || 'An error occurred while registering.');
+      toast.error('An error occurred while registering.');
     }
   };
 
@@ -45,19 +45,19 @@ const Register = () => {
         <RegisterSubtitle>Register to have new features... (movie lists, preferences and recommendations)</RegisterSubtitle>
         <InputContainer>
           <InputGroup>
-            <LoginInput required type='text' id='username' value={username} onChange={(e) => setUsername(e.target.value)} />
+            <LoginInput required type='text' id='username' data-testid="username-input" value={username} onChange={(e) => setUsername(e.target.value)} />
             <LoginLabel>Username</LoginLabel>
           </InputGroup>
           <InputGroup>
-            <LoginInput required type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <LoginInput required type='email' id='email' data-testid="email-input" value={email} onChange={(e) => setEmail(e.target.value)} />
             <LoginLabel>Email</LoginLabel>
           </InputGroup>
           <InputGroup>
-            <LoginInput required type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <LoginInput required type='password' id='password' data-testid="password-input" value={password} onChange={(e) => setPassword(e.target.value)} />
             <LoginLabel>Password</LoginLabel>
           </InputGroup>
           <InputGroup>
-            <LoginInput type='url' id='avatar' value={avatar} onChange={handleAvatarChange} />
+            <LoginInput type='url' id='avatar' data-testid="avatar-input" value={avatar} onChange={handleAvatarChange} />
             <LoginLabel>Avatar URL (Optional)</LoginLabel>
           </InputGroup>
           <RegisterButton type="submit">Register</RegisterButton>

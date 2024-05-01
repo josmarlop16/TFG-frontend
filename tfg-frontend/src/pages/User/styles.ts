@@ -37,7 +37,7 @@ export const EditForm = styled.form`
   gap: 1rem;
   background-color: #fafafa;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   padding: 2rem;
   border-radius: 1rem;
 `;

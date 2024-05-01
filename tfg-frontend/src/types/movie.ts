@@ -59,3 +59,15 @@ export interface CrewMember {
   primaryName: string;
   primaryProfession: string[];
 }
+
+export interface UserData {
+  userLists: {
+    listName: string;
+    movies: {
+      _id: string;
+      title: string;
+      poster_path: string;
+    }[];
+  }[];
+}
+

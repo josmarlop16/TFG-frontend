@@ -98,7 +98,7 @@ const UserProfile = () => {
       toast.error("An error occurred while removing from preferences");
     }
   };
-  
+
   const activateEditingMode = () => {
     setEditing(true);
   };
@@ -131,7 +131,7 @@ const UserProfile = () => {
             </Container>
           )}
           {editing && (
-            <EditForm onSubmit={handleEdit}>
+            <EditForm onSubmit={handleEdit} data-testid="edit-profile-form">
               <EditInput
                 type="text"
                 placeholder="Username"
@@ -156,7 +156,7 @@ const UserProfile = () => {
           )}
         </UserCard>
         <Recommendations/>
-        {userData && userData.preferences && userData.preferences.movies && (
+        {userData && userData.preferences && userData.preferences.movies && Array.isArray(userData.preferences.movies) && (
           <MoviesContainer>
             <UserTitle>Favourite Movies</UserTitle>
             {confirmDelete && (
@@ -181,7 +181,7 @@ const UserProfile = () => {
               </motion.div>
             )}
             <List>
-              {userData.preferences.movies.map((movie: Movie) => (
+              {Array.isArray(userData.preferences.movies) && userData.preferences.movies.map((movie: Movie) => (
                 <MovieContainer key={movie._id}>
                   <FontAwesomeIcon
                     className="trash-icon"

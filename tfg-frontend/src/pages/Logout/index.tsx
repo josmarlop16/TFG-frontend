@@ -1,6 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../hooks/userContext';
+import toast from 'react-hot-toast';
+import LogoutAnimation from "../../lotties/logout-animation.json";
+import LottieComponent from '../../components/LottieComponent';
+import { AnimatedPage } from '../../components/AnimatedPage';
 import {
   LogoutButton,
   LogoutContainer,
@@ -8,17 +13,12 @@ import {
   LogoutTitle,
   LogoutForm
 } from './styles';
-import { useUser } from '../../hooks/userContext';
-import toast from 'react-hot-toast';
-import LogoutAnimation from "../../lotties/logout-animation.json";
-import LottieComponent from '../../components/LottieComponent';
-import { AnimatedPage } from '../../components/AnimatedPage';
 
 const Logout = () => {
   const navigate = useNavigate();
   const { clearUser } = useUser();
 
-  const handleLogout = async (event: any) => {
+  const handleLogout = async (event:any) => {
     event.preventDefault();
     try {
       const authToken = sessionStorage.getItem('token') || "";
@@ -30,14 +30,24 @@ const Logout = () => {
         email,
         authToken
       });
-      if (response.status === 200) {
-        clearUser()
+      if (response.status >= 200 && response.status < 300) {
+        clearUser();
+        navigate('/');
+        toast.success('Logout successful');
       } else {
-        toast.error('Loggin out error!');
+        toast.error('Logout failed!');
       }
-      navigate('/');
     } catch (error:any) {
-      toast.error('Loggin out error!', error);
+      if (error.response) {
+        // La solicitud fue realizada, pero el servidor respondió con un código de estado que no está en el rango 2xx
+        toast.error(`Logout failed with status: ${error.response.status}`);
+      } else if (error.request) {
+        // La solicitud fue realizada pero no se recibió respuesta
+        toast.error('Network error. Please check your internet connection.');
+      } else {
+        // Ocurrió un error al configurar la solicitud
+        toast.error('An unexpected error occurred.');
+      }
     }
   };
 
@@ -46,9 +56,9 @@ const Logout = () => {
       <LogoutContainer>
         <LogoutForm onSubmit={handleLogout}>
           <LottieComponent animation={LogoutAnimation} height={200} width={200} />
-          <LogoutTitle>Logout</LogoutTitle>
-          <LogoutSubtitle>Are you sure you want to exit?</LogoutSubtitle>
-          <LogoutButton type="submit">Logout</LogoutButton>
+          <LogoutTitle data-testid="logout-title" >Logout</LogoutTitle>
+          <LogoutSubtitle data-testid="logout-subtitle" >Are you sure you want to exit?</LogoutSubtitle>
+          <LogoutButton data-testid="logout-button" type="submit">Logout</LogoutButton>
         </LogoutForm>
       </LogoutContainer>
     </AnimatedPage>

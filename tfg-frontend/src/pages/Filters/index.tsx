@@ -100,7 +100,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
       />
       <ApplyContainer>
         <ApplyButton onClick={handleApplyFilters}>Search</ApplyButton>
-        <ApplyButton onClick={handleResetFilters}>
+        <ApplyButton onClick={handleResetFilters} data-testid="reset">
           <FontAwesomeIcon icon={faFilterCircleXmark} />
         </ApplyButton>
       </ApplyContainer>

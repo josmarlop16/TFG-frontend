@@ -2,7 +2,6 @@ import React from 'react';
 import { MediaCarrousel, Thumb, Title } from './styles';
 import ReactPlayer from 'react-player/lazy';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css/sea-green';
 
 interface ImageComponentProps {
   trailers: { url: string }[];

@@ -4,7 +4,7 @@ import { AnimatedPage } from '../../components/AnimatedPage';
 
 export const Developer = () => {
   const goToPortfolio = () => {
-    window.location.href = 'https://josmarlop16.github.io/portfolio/';
+    window.location.assign('https://josmarlop16.github.io/portfolio/');
   };
 
   return (
