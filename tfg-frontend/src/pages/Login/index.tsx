@@ -31,7 +31,6 @@ const Login = () => {
       });
 
       const user = response.data.responseUser;
-      console.log(user);
       updateUser(user);
       navigate('/');
       

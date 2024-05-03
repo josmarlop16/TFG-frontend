@@ -25,7 +25,6 @@ const Register = () => {
         avatar,
       });
       const newUser = response.data.newUser;
-      console.log(newUser);
       updateUser(newUser);
       navigate('/');
     } catch (error: any) {

@@ -25,6 +25,9 @@ export const RegisterForm = styled.form`
   justify-content: center;
   background-color: #fafafa;
   border-radius: 1rem;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
 `;
 export const RegisterTitle = styled.h1`
   color: #000000;
@@ -59,7 +62,7 @@ export const LoginInput = styled.input`
   }
   &:focus ~ label,
   &:valid ~ label {
-    transform: translateY(-110%) scale(0.7);
+    transform: translateY(-98%) scale(0.7);
     background-color: #fafafa;
     padding-inline: 0.3rem;
     color: #000000;
@@ -67,7 +70,7 @@ export const LoginInput = styled.input`
 `;
 export const LoginLabel = styled.label`
   position: absolute;
-  top: 1rem;
+  top: 0.7rem;
   left: 1rem;
   color: #d4d4d4;
   pointer-events: none;

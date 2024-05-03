@@ -7,6 +7,7 @@ import { NoPosterText } from '../../components/MovieCardComponent/styles';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { getFaceIcon } from '../../utils/getFaceIcon';
 import { AnimatedPage } from '../../components/AnimatedPage';
+import '@splidejs/splide/css/sea-green';
 
 interface MovieCarouselProps {
   movies: Movie[];

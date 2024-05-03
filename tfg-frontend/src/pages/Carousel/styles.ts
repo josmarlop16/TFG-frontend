@@ -37,6 +37,9 @@ export const Item = styled.div<{ active: boolean }>`
   animation-duration: 0.5s;
   animation-timing-function: ease-in;
   animation-fill-mode: both;
+  @media screen and (max-width: 768px) {
+     font-size: 0.8rem;
+  }
   ${props =>
     props.active
       ? css`

@@ -20,6 +20,9 @@ export const List = styled.div`
   overflow-y: auto;
   scroll-behavior: smooth;
   padding: 2rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); /* Cambiamos a dos columnas en dispositivos móviles */
+  }
 `;
 export const Horizontal = styled.hr`
   color: #ffffff;

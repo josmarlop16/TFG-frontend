@@ -22,10 +22,16 @@ export const LandingTitle = styled.h1`
   font-size: 5rem;
   font-weight: 300;
   text-align: center;
+  @media screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 export const Carrousel = styled.image`
   width: 50vw;
   height: auto;
+  @media screen and (max-width: 768px) {
+     width: 60%;
+  }
 `;
 export const AnimationContainer = styled.div`
   display: flex;

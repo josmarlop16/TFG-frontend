@@ -113,6 +113,7 @@ const UserProfile = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    zIndex: "9999",
   }
 
   return (
@@ -168,15 +169,15 @@ const UserProfile = () => {
                 style={style}
               >
                 <PopupContainer>
-                <p>Are you sure you want to delete this movie from your preferences?</p>
-                <ButtonContainer>
-                  <Button>
-                    <FontAwesomeIcon icon={faCheck} onClick={confirmDeleteMovie} color='green'/>
-                  </Button>
-                  <Button>
-                    <FontAwesomeIcon icon={faXmark} onClick={() => setConfirmDelete(false)} color='red'/>
-                  </Button>
-                </ButtonContainer>
+                  <p>Are you sure you want to delete this movie from your preferences?</p>
+                  <ButtonContainer>
+                    <Button>
+                      <FontAwesomeIcon icon={faCheck} onClick={confirmDeleteMovie} color='green'/>
+                    </Button>
+                    <Button>
+                      <FontAwesomeIcon icon={faXmark} onClick={() => setConfirmDelete(false)} color='red'/>
+                    </Button>
+                  </ButtonContainer>
                 </PopupContainer>
               </motion.div>
             )}

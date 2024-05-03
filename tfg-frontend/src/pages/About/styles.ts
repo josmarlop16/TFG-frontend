@@ -23,12 +23,18 @@ export const Title = styled.h1`
   font-size: 3.5rem;
   text-align: center;
   margin-bottom: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 export const Subtitle = styled.h2`
   font-size: 2.5rem;
   margin-top: 20px;
   margin-bottom: 10px;
+  @media screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const AboutText = styled.p`
@@ -42,5 +48,8 @@ export const AboutText = styled.p`
   }
   li {
     margin-bottom: 8px;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 0.8rem;
   }
 `;
